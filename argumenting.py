@@ -16,11 +16,7 @@ class Argumentator:
         if predicate == None:
             return False
         T,N = predicate
-        if T.realised and N<0:
-                return True
-        elif not T.realised and N>0:
-                return True
-        return False
+        return ((T.realised and N<0) or (T.negation.realised and N>0))
         
     @staticmethod         
     def __find_conflict(predicates):
@@ -34,18 +30,29 @@ class Argumentator:
     @staticmethod     
     def __find_cause(T,N):
         """Finds a mutable cause for predicate (T,N)."""
-        for cause_tuple in T.cause_tuples:
-            indexes = list(range(len(cause_tuple)))
-            random.shuffle(indexes)
-            if T.realised:
-                if all(cause.conceived for cause in cause_tuple):
-                    for index in indexes:
-                        cause = cause_tuple[index]
+
+        link_indices = list(range(len(T.logical_links)))
+        random.shuffle(link_indices)
+        for link_index in link_indices:
+            cause_list = T.logical_links[link_index].find_causes(T)
+            if cause_list==None:
+                continue
+            
+            cause_indices = list(range(len(cause_list)))
+            random.shuffle(cause_indices)
+            
+            # If T is realised we are in diagnostic mode and check if all the 
+            # causes are are True before trying to tackle one.
+            if N<0:
+                if all(cause.conceived for cause in cause_list):
+                    for cause_index in cause_indices:
+                        cause = cause_list[cause_index]
                         if cause.is_mutable(N):
                             return cause
-            else:   
-                for index in indexes:
-                    cause = cause_tuple[index]
+            # Or we are trying to make T happen and look for a way to do so.
+            else:
+                for cause_index in cause_indices:
+                    cause = cause_list[cause_index]
                     if not cause.conceived and cause.is_mutable(N):
                         return cause
         return None
@@ -76,24 +83,22 @@ class Argumentator:
             T.negation.value = -int(choice)
         print("")
         
+    
     @staticmethod    
     def __procedure(T,N,negated):
         """Starts the Solution/Abduction/Negation/Giving Up procedure on the 
         conflict (T,N), with "negated" indicating if the procedure was started 
         from the negation of a previous conflict.
         """
+        #Solution : Make T happen if it is possible and value is positive.
         if N>0 and T.is_possible():
             print("------> Decision : %s"%T.name)
-            T.decide_true()
+            T.make_true()
             T.value = N
             T.negation.value = -N
             return None
-        if N<0 and T.negation.is_possible():
-            print("------> Decision : %s"%T.negation.name)
-            T.negation.decide_true()
-            T.value = N
-            T.negation.value = -N
-            return None
+        
+        #Abduction : find a mutable cause C for T and start procedure for (C,N)
         C = Argumentator.__find_cause(T,N)
         if C!=None:
             print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
@@ -102,26 +107,32 @@ class Argumentator:
                 return new_conflict 
             else:
                 return (T,N)
+        
+        #Negation : Restart the procedure with the conflict (not T,-N)
         if not negated:
             print("Negating %s, considering %s"%(T.name,T.negation.name))
             new_conflict = Argumentator.__procedure(T.negation,-N, True)
             if new_conflict != None:
                 return new_conflict
+        
+        #Give up : Make v(T) = -N, and reconsider if T is reconsiderable.
         else:
             print(" Giving up: %s is stored with necessity %d"%(T.negation.name,N))
             T.value = -N
             T.negation.value = N
-            current_conflict = (T,-N)
-            if len(T.cause_tuples)+len(T.negation.cause_tuples)!=0 or T.actionable: 
+            if T.reconsiderable:
                 Argumentator.__reconsider(T.negation)
-        return current_conflict
-          
+            return (T,-N)
+        return (T,N)
+
+        
     @staticmethod     
     def argue(predicates):
         """Starts the whole CAN procedure on the specified dictionnary of 
         predicates.
         """
         print("\n*********\n**START**\n*********\n")
+        
         conflict = Argumentator.__find_conflict(predicates)
         while conflict != None:
             (T,N)=conflict
@@ -132,8 +143,9 @@ class Argumentator:
             else:
                 conflict = Argumentator.__find_conflict(predicates)
             print("**Restart**")
-        print("No conflict found")
-        print("\n*******\n**END**\n*******\n")
+            
+    
+        print("No conflict found\n\n*******\n**END**\n*******\n")
 
         
 

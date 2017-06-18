@@ -7,6 +7,7 @@ Created on Fri Jun 16 10:23:18 2017
 
 import re
 from predicate import Predicate
+from logical import Causal_link
 
 class Preprocessor:
     """Preprocessing for converting the textual data to Python objects."""
@@ -31,20 +32,22 @@ class Preprocessor:
         
         # Store the logical clauses.
         pattern="^\s*(-?\w*)\s*<===\s*(.*)\s*$"
-        clauses_text = re.findall(pattern, text, flags=re.MULTILINE)
-        clauses = {}
+        causal_links_text = re.findall(pattern, text, flags=re.MULTILINE)
+        
+        causal_links = []
+
+        for conseqs_text,causes_text in causal_links_text:
             
-        for conseq,causes in clauses_text:
-            if conseq in clauses:
-                clauses[conseq] += [re.findall("([\w-]+)", causes)]
-            else:
-                clauses[conseq] = [re.findall("([\w-]+)", causes)]
-            predicates.add(conseq)
-            for cause_list in clauses[conseq]:
-                for cause in cause_list:
-                    predicates.add(cause)         
+            conseqs = list(re.findall("([\w-]+)", conseqs_text))
+            causes = list(re.findall("([\w-]+)", causes_text))
+            causal_links.append((causes,conseqs))
             
-        return_dict['clauses']=clauses
+            for cause in causes:
+                predicates.add(cause)
+            for conseq in conseqs:
+                predicates.add(conseq)
+            
+        return_dict['causal_links']=causal_links
         
         # Store the preferences.
         pattern="preference\(\s*?(-?\w*)\s*?,\s*?(-?\d*)\s*?\)"
@@ -90,23 +93,27 @@ class Preprocessor:
         
         data_dict = Preprocessor.__text_init(filename)
         predicates = {}
+        logical_links = []
         for name in data_dict['predicates']:
-            
-            if name in data_dict['preferences']:
-                value =  data_dict['preferences'][name]
-            else:
-                value = 0
             
             if name[0]!='-':
                 negation_name = '-'+name
             else:
                 negation_name = name[1:]
+
+            if name in data_dict['preferences']:
+                value =  data_dict['preferences'][name]
+            elif negation_name in data_dict['preferences']:
+                value =  -data_dict['preferences'][negation_name]
+            else:
+                value = 0
+            
     
-            actionable = name in data_dict['actions'] or negation_name in data_dict['actions']
+            actionable = (name in data_dict['actions']) or (negation_name in data_dict['actions'])
             
             realised =  name in data_dict['initial_situations']
     
-            conceived = name in data_dict['defaults'] or realised
+            conceived = (name in data_dict['defaults']) or realised
     
     
             predicate = Predicate(name, value, actionable, realised, conceived)
@@ -117,23 +124,21 @@ class Preprocessor:
                 negation_predicate.negation = predicate
           
             predicates[name] = predicate
-    
+        
+        for link in data_dict['causal_links']:
+            causes = [predicates[name] for name in link[0]]
+            conseqs = [predicates[name] for name in link[1]]
+            logical_link = Causal_link(causes,conseqs)
+            logical_links.append(logical_link)
+            for name in link[0]+link[1]:
+                if logical_link not in predicates[name].logical_links:
+                    predicates[name].logical_links.append(logical_link)
+                  
+        
         for name in predicates:
             if predicates[name].conceived and not predicates[name].negation.realised:
-                predicates[name].realised = True
-            if name in data_dict['clauses']:
-                cause_lists = data_dict['clauses'][name]
-                for cause_list in cause_lists:
-                    cause_tuple = tuple(predicates[pred_name] for pred_name in cause_list)
-                    predicates[name].cause_tuples.add(cause_tuple)
-                    for cause in cause_tuple:
-                        cause.consequences.add(predicates[name])
-            else:
-                cause_lists = []
+                predicates[name].realised = True          
             
-            for cause_tuple in predicates[name].cause_tuples:
-                for cause in cause_tuple:
-                    cause.consequences.add(predicates[name])
-        return predicates
+        return predicates,logical_links
 
         

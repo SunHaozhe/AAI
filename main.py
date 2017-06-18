@@ -18,3 +18,11 @@ if __name__ == '__main__':
     filename = sys.argv[1]
     predicates = Preprocessor.setup_data(filename)
     Argumentator.argue(predicates)
+
+"""
+from preprocessing import Preprocessor
+from argumenting import Argumentator
+filename = "doors.pl"
+predicates,logical_links = Preprocessor.setup_data(filename)
+Argumentator.argue(predicates)
+"""
