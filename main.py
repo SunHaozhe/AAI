@@ -16,7 +16,7 @@ if __name__ == '__main__':
         print(message)
         sys.exit()
     filename = sys.argv[1]
-    predicates = Preprocessor.setup_data(filename)
+    predicates,logical_links = Preprocessor.setup_data(filename)
     Argumentator.argue(predicates)
 
 """

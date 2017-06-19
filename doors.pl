@@ -1,4 +1,4 @@
-/*---------------------------------------------------------------*/
+ï»¿/*---------------------------------------------------------------*/
 /* Telecom Paristech - J-L. Dessalles 2012                       */
 /*            http://teaching.dessalles.fr                       */
 /*---------------------------------------------------------------*/
@@ -15,27 +15,27 @@
 	Original dialogue:
 	==================
 A1 - Ben moi, j'en bave actuellement parce qu'il faut que je refasse mes portes,
-la peinture. Alors j'ai d‚cap‚ … la chaleur. Ca part bien. Mais pas partout.
+la peinture. Alors j'ai dâ€šcapâ€š â€¦ la chaleur. Ca part bien. Mais pas partout.
 C'est un travail dingue, hein? 
-B1- heu, tu as essay‚ de.  Tu as d‚cap‚ tes portes? 
-A2- Ouais, ‡a part trŠs bien … la chaleur, mais dans les coins, tout , les
+B1- heu, tu as essayâ€š de.  Tu as dâ€šcapâ€š tes portes? 
+A2- Ouais, â€¡a part trÅ s bien â€¦ la chaleur, mais dans les coins, tout , les
 moulures, c'est infaisable. [plus fort] Les moulures.  
-B2- Quelle chaleur? La lampe … souder? 
-A3- Ouais, avec un truc sp‚cial.  
-B3- Faut une brosse, dure, une brosse m‚tallique.  
+B2- Quelle chaleur? La lampe â€¦ souder? 
+A3- Ouais, avec un truc spâ€šcial.  
+B3- Faut une brosse, dure, une brosse mâ€štallique.  
 A4- Oui, mais j'attaque le bois.  
 B4- T'attaques le bois.  
 A5- [pause 5 secondes] Enfin je sais pas. C'est un boulot dingue, hein?
 C'est plus de boulot que de racheter une porte, hein? 
-B5- Oh, c'est pour ‡a qu'il vaut mieux laiss... il vaut mieux simplement poncer,
+B5- Oh, c'est pour â€¡a qu'il vaut mieux laiss... il vaut mieux simplement poncer,
 repeindre par dessus 
-A6- Ben oui, mais si on est les quinziŠmes … se dire ‡a 
+A6- Ben oui, mais si on est les quinziÅ mes â€¦ se dire â€¡a 
 B6- Ah oui.  
-A7- Y a d‚j… trois couches de peinture, hein, dessus.  
-B7- Remarque, si elle tient bien, la peinture, l… o— elle est ‚caill‚e, on
-peut enduire. De l'enduit … l'eau, ou 
-A8- Oui, mais l'‚tat de surface est pas joli, quoi, ‡a fait laque, tu sais,
-‡a fait vieille porte.  
+A7- Y a dâ€šjâ€¦ trois couches de peinture, hein, dessus.  
+B7- Remarque, si elle tient bien, la peinture, lâ€¦ oâ€” elle est â€šcaillâ€še, on
+peut enduire. De l'enduit â€¦ l'eau, ou 
+A8- Oui, mais l'â€štat de surface est pas joli, quoi, â€¡a fait laque, tu sais,
+â€¡a fait vieille porte.  
 
 
 	English translation:

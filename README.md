@@ -1,5 +1,4 @@
 # AAI
-Test
 
 Télécom ParisTech student project (PAF)
 
