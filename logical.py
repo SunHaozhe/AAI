@@ -5,11 +5,37 @@ Created on Sun Jun 18 15:03:21 2017
 @author: Tasslehoff
 """
 
-class Logical_link:
-    """Represents a logical link of any kind between different predicates."""
+class Logic:
     
+    @staticmethod
+    def find_consequences(T,link):
+        if link.link_type == "causal":
+            if T in link.causes:
+                return link.consequences
+            return None     
+    
+    @staticmethod        
+    def find_causes(T,link):
+        if link.link_type == "causal":
+            if T in link.consequences:
+                return link.causes
+            return None
+            
+    @staticmethod          
+    def causal_relations(link):
+        if link.link_type == "causal":
+            yield (link.causes, link.consequences)
+    
+    @staticmethod
+    def makes_true(T,link):  
+        if link.link_type == "causal":
+            if T in link.consequences:
+                if all(P.realised for P in link.causes):
+                    return True
+            return False
+
         
-class Causal_link(Logical_link):
+class Causal_link:
     """Represents a causal link between two lists of predicates."""
     
     def __init__(self, causes, consequences):

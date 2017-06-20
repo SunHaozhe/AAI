@@ -12,17 +12,22 @@ from SeparateWorld import World
 
 class Argumentator:
     
+    def __init__(self,world):
+        self.world = world
+        self.defaults = 0# defaults
+    
     @staticmethod 
     def __is_conflict(predicate):
         """Checks if predicate is a conflict."""
         if predicate == None:
             return False
         T,N = predicate
-        return ((T.realised and N<0) or (T.negation.realised and N>0))
+        return ((Argumentator.__seems_realised(T) and N<0) or (Argumentator.__seems_realised(T.negation) and N>0))
+      
         
-    @staticmethod         
-    def __find_conflict(predicates):
+    def __find_conflict(self):
         """Finds a new conflict in the dictionnary of predicates."""
+        predicates = self.world.predicates
         for name in predicates:
             T=predicates[name]
             if Argumentator.__is_conflict((T,T.value)):
@@ -30,13 +35,13 @@ class Argumentator:
         return None
   
     @staticmethod    
-    def __seems_realised(T,consider_default):
+    def __seems_realised(T,consider_default=True):
         if not consider_default:
             return T.realised
         return (T.realised and T.default !=-1) or T.default==1
 
     @staticmethod 
-    def __find_mutable_cause(T,N,consider_default):
+    def __find_mutable_cause(T,N,consider_default=True):
         """Finds a mutable cause for predicate (T,N)."""
 
         for cause_list in Abductor.find_causes(T):
@@ -54,8 +59,6 @@ class Argumentator:
                 for cause in cause_list:
                     if not Argumentator.__seems_realised(cause,consider_default) and cause.is_mutable(N):
                         return cause
-        if consider_default:
-            return Argumentator.__find_mutable_cause(T,N,False)
         return None
         
 
@@ -85,31 +88,37 @@ class Argumentator:
             T.negation.value = -int(choice)
         print("")
         
-    
-    @staticmethod    
-    def __procedure(T,N,negated):
+       
+    def __procedure(self,T,N,negated):
         """Starts the Solution/Abduction/Negation/Giving Up procedure on the 
         conflict (T,N), with "negated" indicating if the procedure was started 
         from the negation of a previous conflict.
         """
-        if Argumentator.__seems_realised(T,True)!=T.realised:
-            print("Restoring wrong asumption about %s : it is %s"%(T.name,str(T.realised)))
-            T.default = 0
-            T.negation.default = 0
+        
+        T.default = 0
+        T.negation.default = 0
         
         #Solution : Make T happen if it is possible and value is positive.
         if N>0 and T.is_possible():
             print("------> Decision : %s"%T.name)
-            World.make_true(T)
+            self.world.update_based_on(T)
             T.value = N
             T.negation.value = -N
             return None
         
         #Abduction : find a mutable cause C for T and start procedure for (C,N)
-        C = Argumentator.__find_mutable_cause(T,N,True)
+        
+        #First we try while considering our default asumptions to be true.
+        C = Argumentator.__find_mutable_cause(T,N)
+        
+        # If no mutable cause was found, we try again by ignoring our default 
+        # asumptions
+        if C==None:
+            C = Argumentator.__find_mutable_cause(T,N,False)        
+    
         if C!=None:
             print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
-            new_conflict = Argumentator.__procedure(C,N,False)
+            new_conflict = self.__procedure(C,N,False)
             if new_conflict != None:
                 return new_conflict 
             else:
@@ -118,7 +127,7 @@ class Argumentator:
         #Negation : Restart the procedure with the conflict (not T,-N)
         if not negated:
             print("Negating %s, considering %s"%(T.name,T.negation.name))
-            new_conflict = Argumentator.__procedure(T.negation,-N, True)
+            new_conflict = self.__procedure(T.negation,-N, True)
             if new_conflict != None:
                 return new_conflict
         
@@ -132,23 +141,23 @@ class Argumentator:
             return (T,-N)
         return (T,N)
 
-        
-    @staticmethod     
-    def argue(predicates):
+            
+    def argue(self):
         """Starts the whole CAN procedure on the specified dictionnary of 
         predicates.
         """
+        
         print("\n*********\n**START**\n*********\n")
         
-        conflict = Argumentator.__find_conflict(predicates)
+        conflict = self.__find_conflict()
         while conflict != None:
             (T,N)=conflict
             print("Considering conflict of intensity %d with %s"%(N,T.name))
-            new_conflict = Argumentator.__procedure(T,N,False)
+            new_conflict = self.__procedure(T,N,False)
             if Argumentator.__is_conflict(new_conflict):
                 conflict = new_conflict
             else:
-                conflict = Argumentator.__find_conflict(predicates)
+                conflict = self.__find_conflict()
             print("**Restart**")
             
     

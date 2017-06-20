@@ -7,6 +7,7 @@ Created on Sat Jun 17 18:24:40 2017
 
 from preprocessing import Preprocessor
 from argumenting import Argumentator
+from SeparateWorld import World
 import sys
 
 if __name__ == '__main__':
@@ -17,12 +18,18 @@ if __name__ == '__main__':
         sys.exit()
     filename = sys.argv[1]
     predicates,logical_links = Preprocessor.setup_data(filename)
-    Argumentator.argue(predicates)
+    world = World(predicates,logical_links)
+    argumentator = Argumentator(world)
+    argumentator.argue()
 
 """
 from preprocessing import Preprocessor
 from argumenting import Argumentator
+from SeparateWorld import World
 filename = "doors.pl"
 predicates,logical_links = Preprocessor.setup_data(filename)
-Argumentator.argue(predicates)
+world = World(predicates,logical_links)
+argumentator = Argumentator(world)
+argumentator.argue()
 """
+

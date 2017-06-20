@@ -5,6 +5,8 @@
 Ceci est un script temporaire.
 """
 
+from logical import Logic
+import copy
 
 class World:
     
@@ -18,69 +20,60 @@ class World:
             self.init_situations[pred_name] = self.predicates[pred_name].realised
             self.past_situations[pred_name] = self.init_situations[pred_name]
             self.is_consequence[pred_name] = False
+        self.decisions = []
 
     def __restore_initial_situation(self):
         for pred_name in self.predicates:
             self.past_situations[pred_name] = self.predicates[pred_name].realised
             if self.is_consequence[pred_name]:
-                self.predicates[pred_name].realised = self.init_situations[pred_name]
+                self.predicates[pred_name].realised = self.init_situations[pred_name]    
             
-
-    def find_consequences(T,link):
-        if link.link_type == "causal":
-            if T in link.causes:
-                return link.consequences
-            return None
-            
-            
-    def find_causes(T,link):
-        if link.link_type == "causal":
-            if T in link.consequences:
-                return link.causes
-            return None
-            
-    def causal_relations(link):
-        if link.link_type == "causal":
-            yield link.causes, link.consequences
     
-    def makes_true(T,link):  
-        if link.link_type == "causal":
-            if T in link.consequences:
-                if all(P.realised for P in link.causes):
-                    return True
-            return False
-    
-    def check_all_links(self,T):
+    def propagate_forward(self,T,show_inference):
         change = False
-        for link_name in self.logical_links:
-            link = self.logical_links[link_name]
-            for causes,consequences in World.causal_relations(link):
-                if all(P.realised for P in causes):
+        for link in T.logical_links:
+            for (causes,consequences) in Logic.causal_relations(link):
+                if T in causes and all(c.realised for c in causes):
                     for P in consequences:
                         if not P.realised:
-                            self.make_true(P,True)
+                            self.make_true(P,show_inference)
                             change = True
                             if not self.past_situations[P.name]:
-                                print("Inferring %s from %s" %(P.name,T.name))
+                                if show_inference:
+                                    print("Inferring %s from %s" %(P.name,T.name))
                                 self.past_situations[P.name] = True
+        '''
+        print("#########")
+        for pred_name in self.predicates:
+            print(pred_name,"  |  ",self.predicates[pred_name].realised)
+        print("#########",change,"#########")
+        '''
         return change
 
 
     def update_based_on(self,T):
-        self.make_true(T,False)
+        
+        if T.negation.name in self.decisions:
+            self.decisions.remove(T.negation.name)
+                   
         self.__restore_initial_situation()
-        change = self.check_all_links(T)
-        while change:
-            change = self.check_all_links(T)
-                
+        
+        for pred_name in self.decisions:
+            self.make_true(self.predicates[pred_name],False)
+        
+        self.make_true(T,True)
+        self.decisions.append(T.name)
+        
+        
+
                       
-    def make_true(self,T,is_consequence):
+    def make_true(self,T,show_inference):
         """Makes the predicate realised and updates itself and other predicates
         accordingly.
         """
         T.realised = True
         T.negation.realised = False
-        self.is_consequence[T.name] = is_consequence
-        self.is_consequence[T.negation.name] = is_consequence
+        self.propagate_forward(T,show_inference)
         T.make_action()
+
 
