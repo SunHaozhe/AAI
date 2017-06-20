@@ -11,16 +11,16 @@ from abduction import Abductor
 from SeparateWorld import World
 
 class Argumentator:
-    
-    @staticmethod 
+
+    @staticmethod
     def __is_conflict(predicate):
         """Checks if predicate is a conflict."""
         if predicate == None:
             return False
         T,N = predicate
         return ((T.realised and N<0) or (T.negation.realised and N>0))
-        
-    @staticmethod         
+
+    @staticmethod
     def __find_conflict(predicates):
         """Finds a new conflict in the dictionnary of predicates."""
         for name in predicates:
@@ -28,27 +28,27 @@ class Argumentator:
             if Argumentator.__is_conflict((T,T.value)):
                 return (T,T.value)
         return None
-  
-    @staticmethod    
+
+    @staticmethod
     def __seems_realised(T,consider_default):
         if not consider_default:
             return T.realised
         return (T.realised and T.default !=-1) or T.default==1
 
-    @staticmethod 
+    @staticmethod
     def __find_mutable_cause(T,N,consider_default):
         """Finds a mutable cause for predicate (T,N)."""
 
         for cause_list in Abductor.find_causes(T):
 
-            # If T is realised we are in diagnostic mode and check if all the 
+            # If T is realised we are in diagnostic mode and check if all the
             # causes are are True before trying to tackle one.
             if N<0:
                 if all(Argumentator.__seems_realised(cause,consider_default) for cause in cause_list):
                     for cause in cause_list:
                         if cause.is_mutable(N):
                             return cause
-                            
+
             # Or we are trying to make T happen and look for a way to do so.
             else:
                 for cause in cause_list:
@@ -57,9 +57,9 @@ class Argumentator:
         if consider_default:
             return Argumentator.__find_mutable_cause(T,N,False)
         return None
-        
 
-    @staticmethod    
+
+    @staticmethod
     def __reconsider(T):
         """Prompts the user to reconsider the value of a predicate if he wishes
         to do so.
@@ -69,7 +69,7 @@ class Argumentator:
         print("[y/n]")
         valid = {"yes": True, "y": True, "ye": True,
                  "no": False, "n": False}
-                 
+
         choice = input().lower()
         while choice not in valid:
             print("Please respond with 'yes' or 'no' (or 'y' or 'n').")
@@ -84,11 +84,11 @@ class Argumentator:
             T.value = int(choice)
             T.negation.value = -int(choice)
         print("")
-        
-    
-    @staticmethod    
+
+
+    @staticmethod
     def __procedure(T,N,negated):
-        """Starts the Solution/Abduction/Negation/Giving Up procedure on the 
+        """arts the Solution/Abduction/Negation/Giving Up procedure on the
         conflict (T,N), with "negated" indicating if the procedure was started 
         from the negation of a previous conflict.
         """
