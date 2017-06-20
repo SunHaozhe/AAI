@@ -39,46 +39,65 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	
 	
 	% initial facts
-	initial_situation(joue(femmes, '3_sets')).
-	initial_situation(joue(hommes, '5_sets')).
-	initial_situation(court_marathon(femmes)).
-	initial_situation(court_marathon(hommes)).
-	initial_situation(exemple(femmes, '5_sets', 1980)).
-	initial_situation(capable(hommes, '5_sets')).
+	initial_situation(joue_femmes_3_sets).
+	initial_situation(joue_hommes_5_sets).
+	initial_situation(court_marathon_femmes).
+	initial_situation(court_marathon_hommes).
+	initial_situation(exemple_femmes_5_sets_1980).
+	initial_situation(capable_hommes_5_sets).
 
 	% actions
-	action(passer(_, _, _)).
+	action(passer_hommes_3sets).
+	action(passer_hommes_5sets).
+	action(passer_femmes_3sets).
+	action(passer_femmes_5sets).
 	
 	% defaults
-	default(-capable(femmes, '5_sets')).
-	default(-audience(femmes)).
-	default(endurant(hommes)).
+	default(-capable_femmes_5_sets).
+	default(-audience_femmes).
+	default(endurant_hommes).
 
 	% incompatibilities
-	incompatible([egalite(femmes,hommes), joue(hommes, '5_sets'), joue(femmes, '3_sets')]).
-	% incompatible([egalite(X,Y), capable(X, A), -capable(Y, A)]).
-	incompatible([-capable(X, A), exemple(X, A, _)]).
-	incompatible([joue(X, '5_sets'), -endurant(X)]).
-	incompatible([-capable(X, '5_sets'), endurant(X)]).
-	incompatible([-endurant(X), court_marathon(X)]).
-	incompatible([-joue(X, '5_sets'), -joue(X, '3_sets')]).
-	incompatible([joue(X, '5_sets'), joue(X, '3_sets')]).
-
+	incompatible([egalite_femmes_hommes, joue_hommes_5_sets, joue_femmes_3_sets]).
+	incompatible([egalite_femmes_hommes, joue_hommes_3_sets, joue_femmes_5_sets]).
+	incompatible([egalite_femmes_hommes, capable_hommes_5_sets, -capable_femmes_5_sets]).
+	incompatible([egalite_femmes_hommes, capable_hommes_3_sets, -capable_femmes_3_sets]).
+	incompatible([egalite_femmes_hommes, -capable_hommes_5_sets, capable_femmes_5_sets]).
+	incompatible([egalite_femmes_hommes, capable_hommes_5_sets, -capable_femmes_5_sets]).
+	incompatible([-capable_femmes_5_sets, exemple_femmes_5_sets_1980]).
+	incompatible([joue_hommes_5_sets, -endurant_hommes]).
+	incompatible([joue_femmes_5_sets, -endurant_femmes]).
+	incompatible([-capable_hommes_5_sets, endurant_hommes]).
+	incompatible([-capable_femmes_5_sets, endurant_femmes]).
+	incompatible([-endurant_hommes, court_marathon_hommes]).
+	incompatible([-endurant_femmes, court_marathon_femmes]).
+	incompatible([-joue_hommes_5_sets, -joue_hommes_3_sets]).
+	incompatible([-joue_femmes_5_sets, -joue_femmes_3_sets]).
+	incompatible([joue_hommes_5_sets, joue_hommes_3_sets]).
+	incompatible([joue_femmes_5_sets, joue_femmes_3_sets]).
 
 	% causal clauses
-	audience(X) <=== joue(X, '5_sets').
-	-audience(X) <=== joue(X, '3_sets').
-	joue(X, '5_sets') <=== passer(X, '3_sets', '5_sets').
-	joue(X, '3_sets') <=== passer(X, '5_sets', '3_sets').
+	audience_femmes <=== joue_femmes_5_sets.
+	audience_hommes <=== joue_hommes_5_sets.
+	-audience_femmes <=== joue_femmes_3_sets.
+	-audience_hommes <=== joue_hommes_3_sets.
+	joue_hommes_3_sets <=== passer_hommes_3sets.
+	joue_hommes_5_sets <=== passer_hommes_5sets.
+	joue_femmes_3_sets <=== passer_femmes_3sets.
+	joue_femmes_5_sets <=== passer_femmes_5sets.
 	
 	% prerequisites
-	passer(X, '3_sets', '5_sets') <--- joue(X, '3_sets').
-	passer(X, '5_sets', '5_sets') <--- joue(X, '5_sets').
+
+	passer_hommes_3sets <--- joue_hommes_5_sets.
+	passer_hommes_5sets <--- joue_hommes_3_sets.
+	passer_femmes_3sets <--- joue_femmes_5_sets.
+	passer_femmes_5sets <--- joue_femmes_3_sets.
+
 	
 	% beliefs
 
 	% preferences (termes positifs seulement)
-	preference(egalite(femmes, hommes), 10).
-	preference(audience(femmes), 5).
-	preference(audience(hommes), 5).
-	% preference(joue(hommes, '5_sets'), 5).
+	preference(egalite_femmes_hommes, 10).
+	preference(audience_femmes), 5).
+	preference(audience_hommes), 5).
+	preference(joue_hommes_5_sets, 5).
