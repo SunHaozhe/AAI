@@ -57,7 +57,7 @@ A6- Yeah, but the surface won't look great. It'll look like an old door.
 	Content to reconstruct:
 	=======================
 A1- repaint, burn-off, mouldings, tough work
-B1- wire brush
+B1- scratch
 A2- wood wrecked
 A3- tough work
 B3- sanding
@@ -97,7 +97,7 @@ A6- not nice surface
 	% actions
 	action(repaint).
 	action(burn_off).
-	action(wire_brush).
+	action(scratch).
 	action(sanding).
 	action(filler_compound).
 
@@ -105,11 +105,18 @@ A6- not nice surface
 	% defaults
 	default(-soft_wood).
 	default(-several_layers).
-	default(-wire_brush).	
+	default(-scratch).	
 	default(-wood_wrecked).		%%%%% solution %%%%%
 
 
 	% prerequisites
+	-repaint <=== no_painting
+	-burn_off <=== no_blowpipe
+	-scratch <=== no_wire_brush
+	-sanding <=== no_sander
+	-filler_compound <=== no_filler_compound
+	
+
 
 
 	% causal clauses
@@ -120,8 +127,8 @@ A6- not nice surface
 
 	
 	% physical consequences
-	tough_work <=== burn_off + mouldings + -wire_brush.
-	wood_wrecked <=== wire_brush + soft_wood.
+	tough_work <=== burn_off + mouldings + -scratch.
+	wood_wrecked <=== scratch + soft_wood.
 	-nice_surface <=== wood_wrecked.
 
 
