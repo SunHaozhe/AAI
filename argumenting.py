@@ -6,7 +6,9 @@ Created on Fri Jun 16 18:12:33 2017
 """
 
 
-import random
+
+from abduction import Abductor
+from SeparateWorld import World
 
 class Argumentator:
     
@@ -26,37 +28,37 @@ class Argumentator:
             if Argumentator.__is_conflict((T,T.value)):
                 return (T,T.value)
         return None
-    
-    @staticmethod     
-    def __find_cause(T,N):
+  
+    @staticmethod    
+    def __seems_realised(T,consider_default):
+        if not consider_default:
+            return T.realised
+        return (T.realised and T.default !=-1) or T.default==1
+
+    @staticmethod 
+    def __find_mutable_cause(T,N,consider_default):
         """Finds a mutable cause for predicate (T,N)."""
 
-        link_indices = list(range(len(T.logical_links)))
-        random.shuffle(link_indices)
-        for link_index in link_indices:
-            cause_list = T.logical_links[link_index].find_causes(T)
-            if cause_list==None:
-                continue
-            
-            cause_indices = list(range(len(cause_list)))
-            random.shuffle(cause_indices)
-            
+        for cause_list in Abductor.find_causes(T):
+
             # If T is realised we are in diagnostic mode and check if all the 
             # causes are are True before trying to tackle one.
             if N<0:
-                if all(cause.conceived for cause in cause_list):
-                    for cause_index in cause_indices:
-                        cause = cause_list[cause_index]
+                if all(Argumentator.__seems_realised(cause,consider_default) for cause in cause_list):
+                    for cause in cause_list:
                         if cause.is_mutable(N):
                             return cause
+                            
             # Or we are trying to make T happen and look for a way to do so.
             else:
-                for cause_index in cause_indices:
-                    cause = cause_list[cause_index]
-                    if not cause.conceived and cause.is_mutable(N):
+                for cause in cause_list:
+                    if not Argumentator.__seems_realised(cause,consider_default) and cause.is_mutable(N):
                         return cause
+        if consider_default:
+            return Argumentator.__find_mutable_cause(T,N,False)
         return None
         
+
     @staticmethod    
     def __reconsider(T):
         """Prompts the user to reconsider the value of a predicate if he wishes
@@ -90,16 +92,21 @@ class Argumentator:
         conflict (T,N), with "negated" indicating if the procedure was started 
         from the negation of a previous conflict.
         """
+        if Argumentator.__seems_realised(T,True)!=T.realised:
+            print("Restoring wrong asumption about %s : it is %s"%(T.name,str(T.realised)))
+            T.default = 0
+            T.negation.default = 0
+        
         #Solution : Make T happen if it is possible and value is positive.
         if N>0 and T.is_possible():
             print("------> Decision : %s"%T.name)
-            T.make_true()
+            World.make_true(T)
             T.value = N
             T.negation.value = -N
             return None
         
         #Abduction : find a mutable cause C for T and start procedure for (C,N)
-        C = Argumentator.__find_cause(T,N)
+        C = Argumentator.__find_mutable_cause(T,N,True)
         if C!=None:
             print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
             new_conflict = Argumentator.__procedure(C,N,False)

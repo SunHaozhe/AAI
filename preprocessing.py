@@ -113,10 +113,15 @@ class Preprocessor:
             
             realised =  name in data_dict['initial_situations']
     
-            conceived = (name in data_dict['defaults']) or realised
+            if name in data_dict['defaults']:
+                default = 1
+            elif negation_name in data_dict['defaults']:
+                default = -1
+            else:
+                default = 0
     
     
-            predicate = Predicate(name, value, actionable, realised, conceived)
+            predicate = Predicate(name, value, actionable, realised, default)
             
             if negation_name in predicates :
                 negation_predicate = predicates[negation_name]
@@ -136,7 +141,7 @@ class Preprocessor:
                   
         
         for name in predicates:
-            if predicates[name].conceived and not predicates[name].negation.realised:
+            if predicates[name].default==1 and not predicates[name].negation.realised:
                 predicates[name].realised = True          
             
         return predicates,logical_links

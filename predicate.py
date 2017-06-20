@@ -10,13 +10,13 @@ class Predicate:
     consequences etc.
     """
     
-    def __init__(self, name, value, actionable, realised, conceived): 
+    def __init__(self, name, value, actionable, realised, default): 
         self.name = name
         self.value = value
         self.actionable = actionable
         self.realised = realised
-        self._init_situation = realised
-        self.conceived = conceived
+        self.default = default
+        self.init_situation = realised
         self.reconsiderable = (value!=0)
         self.negation = None
         self.logical_links = []
@@ -56,7 +56,7 @@ class Predicate:
             print("Inferring %s from %s" %(self.name,changed_cause.name))
             self.make_true()
 
-        elif self.realised and not being_realised and not self._init_situation:
+        elif self.realised and not being_realised and not self.init_situation:
             print("Went back to %s because of %s" %(self.negation.name,changed_cause.negation.name))
             self.negation.make_true()
         
