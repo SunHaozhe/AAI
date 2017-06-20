@@ -4,8 +4,28 @@
 
 Ceci est un script temporaire.
 """
+
+
 class World:
     
+    def __init__(self,predicates,logical_links):
+        self.predicates = predicates
+        self.logical_links = logical_links
+        self.init_situations = {}
+        self.past_situations = {}
+        self.is_consequence = {}
+        for pred_name in self.predicates:
+            self.init_situations[pred_name] = self.predicates[pred_name].realised
+            self.past_situations[pred_name] = self.init_situations[pred_name]
+            self.is_consequence[pred_name] = False
+
+    def __restore_initial_situation(self):
+        for pred_name in self.predicates:
+            self.past_situations[pred_name] = self.predicates[pred_name].realised
+            if self.is_consequence[pred_name]:
+                self.predicates[pred_name].realised = self.init_situations[pred_name]
+            
+
     def find_consequences(T,link):
         if link.link_type == "causal":
             if T in link.causes:
@@ -18,6 +38,10 @@ class World:
             if T in link.consequences:
                 return link.causes
             return None
+            
+    def causal_relations(link):
+        if link.link_type == "causal":
+            yield link.causes, link.consequences
     
     def makes_true(T,link):  
         if link.link_type == "causal":
@@ -26,38 +50,37 @@ class World:
                     return True
             return False
     
-    @staticmethod
-    def __propagation(T):
-        """ implements Wordl argumentation """
-        L = T.logical_links
-        for link in L:
-            consequences = World.find_consequences(T,link)
-            if consequences==None:
-                continue
-            for P in consequences:
-                being_realised = False
-                for link_deux in P.logical_links:
-                    if World.makes_true(P,link):
-                        being_realised = True
-                        break
-                if not P.realised and being_realised:
-                    print("Inferring %s from %s" %(P.name,T.name))
-                    World.make_true(P)
+    def check_all_links(self,T):
+        change = False
+        for link_name in self.logical_links:
+            link = self.logical_links[link_name]
+            for causes,consequences in World.causal_relations(link):
+                if all(P.realised for P in causes):
+                    for P in consequences:
+                        if not P.realised:
+                            self.make_true(P,True)
+                            change = True
+                            if not self.past_situations[P.name]:
+                                print("Inferring %s from %s" %(P.name,T.name))
+                                self.past_situations[P.name] = True
+        return change
 
-                elif P.realised and not being_realised and not P.init_situation:
-                    print("Went back to %s because of %s" %(P.negation.name,T.negation.name))
-                    World.make_true(P.negation)
-            
-    @staticmethod        
-    def make_true(T):
+
+    def update_based_on(self,T):
+        self.make_true(T,False)
+        self.__restore_initial_situation()
+        change = self.check_all_links(T)
+        while change:
+            change = self.check_all_links(T)
+                
+                      
+    def make_true(self,T,is_consequence):
         """Makes the predicate realised and updates itself and other predicates
         accordingly.
         """
         T.realised = True
-        T.conceived = True
         T.negation.realised = False
-        T.negation.conceived = False
-        World.__propagation(T)
-        World.__propagation(T.negation)
+        self.is_consequence[T.name] = is_consequence
+        self.is_consequence[T.negation.name] = is_consequence
         T.make_action()
 
