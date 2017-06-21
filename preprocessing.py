@@ -35,6 +35,7 @@ class Preprocessor:
         causal_links_text = re.findall(pattern, text, flags=re.MULTILINE)
         
         causal_links = []
+        incompatibility_links = []
 
         for conseqs_text,causes_text in causal_links_text:
             
@@ -48,7 +49,19 @@ class Preprocessor:
                 predicates.add(conseq)
             
         return_dict['causal_links']=causal_links
-        
+    
+        #Store the incompatibilities
+        pattern="^\s*(incompatible\(\[(.*)\])"
+        words = re.findall(pattern, text, flags=re.MULTILINE)
+        for word_text in words:
+            
+            word = list(re.findall("([\w-]+)", word_text))
+            incompatibility_links.append(word)
+            
+        return_dict['incompatibility_links']=incompatibility_links
+    
+    
+    
         # Store the preferences.
         pattern="preference\(\s*?(-?\w*)\s*?,\s*?(-?\d*)\s*?\)"
         preferences_text = re.findall(pattern, text, flags=re.MULTILINE)

@@ -25,3 +25,11 @@ class Causal_link(Logical_link):
     __str__ = __repr__
     #-----------------------------
         
+class Incompatibility_link(Logical_link):
+    """Represents an incompatibility link between different predicates."""
+    
+    def __init__(self, words):
+        self.words = words
+        self.link_type = "incompatibility"
+        
+    
