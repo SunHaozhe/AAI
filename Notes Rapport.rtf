@@ -30,7 +30,7 @@ Premier modèle codé:
 5 classes:
 - Preprocessing: extrait d'une conversation textuelle l'ensemble des règles
 - Predicate: regroupe les faits, actions etc...
-- Logical_Links: construction d'objets "liens logiques" pouvant relier des prédicats etre eux
+- Logical_Links: construit des objets "liens logiques" pouvant relier des prédicats etre eux
 - Causal_Links: sous classe des liens logiques, qui sont ici exclusivement causaux. Relient un prédicat à ses causes et ses conséquences. Peut propager lui-même la réalisation d'une cause à ses conséquences.
 - Argumentator: met en place la procédure CAN (causalité, abduction, négation)
 
@@ -48,3 +48,9 @@ Lorsqu'une cause est réalisée toutes les conséquences de liens logiques (horm
 Problème rencontré: notre modélisation ne prend pas encore en compte les pré-requis des actions  (exemple: pour décaper il faut un chalumeau...)
 
 Quatrième version modèle du code:
+
+Prise en compte des pré-requis sous forme négative: non(brosse métallique) ==> non(décaper). Donc, quand une action n'a pas de cause et est passée à la négation, si elle n'est pas faisable, cela indique que l'on n'a pas d'outil nécessaire.
++ retour sur la conception du monde, retour à la précédente version, car il n'est pas possible de vouloir remettre les causes à zéro.
+
+Cinquième version du code:
+A partir d'un nouvel exemple, création d'un nouveau type de lien logique (l'incompatibilité). En effet l'exemple traité était sur la place des femmes au tennis. Pourquoi jouent-elles en 3.7 et pas en 5.7 ? Il fallait alors considérer des évènements incompatibles pour raisonner comme: (jouer en 3.7) et (jouer en 5.7).
