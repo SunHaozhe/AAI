@@ -6,7 +6,8 @@ Ceci est un script temporaire.
 """
 
 from logical import Logic
-import copy
+
+
 
 class World:
     
@@ -22,58 +23,46 @@ class World:
             self.is_consequence[pred_name] = False
         self.decisions = []
 
+
     def __restore_initial_situation(self):
         for pred_name in self.predicates:
             self.past_situations[pred_name] = self.predicates[pred_name].realised
-            if self.is_consequence[pred_name]:
-                self.predicates[pred_name].realised = self.init_situations[pred_name]    
-            
-    
-    def propagate_forward(self,T,show_inference):
+            self.predicates[pred_name].realised = self.init_situations[pred_name]
+
+   
+    def propagate(self,T):
+        """ implements World argumentation """
         change = False
         for link in T.logical_links:
-            for (causes,consequences) in Logic.causal_relations(link):
-                if T in causes and all(c.realised for c in causes):
-                    for P in consequences:
-                        if not P.realised:
-                            self.make_true(P,show_inference)
-                            change = True
-                            if not self.past_situations[P.name]:
-                                if show_inference:
-                                    print("Inferring %s from %s" %(P.name,T.name))
-                                self.past_situations[P.name] = True
-        '''
-        print("#########")
-        for pred_name in self.predicates:
-            print(pred_name,"  |  ",self.predicates[pred_name].realised)
-        print("#########",change,"#########")
-        '''
-        return change
+            consequences = Logic.find_consequences(T,link)
+            if consequences==None:
+                continue
+            for P in consequences:
+                being_realised = False
+                for conseq_link in P.logical_links:
+                    if Logic.makes_true(P,conseq_link):
+                        being_realised = True
+                        break
+                if not P.realised and being_realised:
+                    print("Inferring %s from %s" %(P.name,T.name))
+                    self.make_true(P)
 
+                elif P.realised and not being_realised and not self.init_situations[P.name]:
+                    print("Went back to %s because of %s" %(P.negation.name,T.negation.name))
+                    self.make_true(P.negation)
+        if change:
+            self.propagate(T)
 
-    def update_based_on(self,T):
-        
-        if T.negation.name in self.decisions:
-            self.decisions.remove(T.negation.name)
-                   
-        self.__restore_initial_situation()
-        
-        for pred_name in self.decisions:
-            self.make_true(self.predicates[pred_name],False)
-        
-        self.make_true(T,True)
-        self.decisions.append(T.name)
-        
-        
 
                       
-    def make_true(self,T,show_inference):
+    def make_true(self,T):
         """Makes the predicate realised and updates itself and other predicates
         accordingly.
         """
         T.realised = True
         T.negation.realised = False
-        self.propagate_forward(T,show_inference)
+        self.propagate(T)
+        self.propagate(T.negation)
         T.make_action()
 
 

@@ -115,7 +115,7 @@ A6- not nice surface
 	% causal clauses
 	nice_surface <=== burn_off + -wood_wrecked.
 	nice_surface <=== sanding + -several_layers + -wood_wrecked.		%%%%% solution %%%%%
-	nice_surface <=== filler_compound + -wood_wrecked.		%%%%% solution %%%%%
+	nice_surface <==%= filler_compound + -wood_wrecked.		%%%%% solution %%%%%
 	nice_doors <=== repaint + nice_surface.
 
 	

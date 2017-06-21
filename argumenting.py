@@ -8,7 +8,6 @@ Created on Fri Jun 16 18:12:33 2017
 
 
 from abduction import Abductor
-from SeparateWorld import World
 
 class Argumentator:
     
@@ -41,24 +40,25 @@ class Argumentator:
         return (T.realised and T.default !=-1) or T.default==1
 
     @staticmethod 
-    def __find_mutable_cause(T,N,consider_default=True):
+    def __find_mutable_cause(T,N):
         """Finds a mutable cause for predicate (T,N)."""
 
-        for cause_list in Abductor.find_causes(T):
+        for cause_list in Abductor.find_causes(T,shuffle=False):
 
             # If T is realised we are in diagnostic mode and check if all the 
             # causes are are True before trying to tackle one.
-            if N<0:
-                if all(Argumentator.__seems_realised(cause,consider_default) for cause in cause_list):
+            for consider_default in (True,False):
+                if N<0:
+                    if all(Argumentator.__seems_realised(cause,consider_default) for cause in cause_list):
+                        for cause in cause_list:
+                            if cause.is_mutable(N):
+                                return cause
+                                
+                # Or we are trying to make T happen and look for a way to do so.
+                else:
                     for cause in cause_list:
-                        if cause.is_mutable(N):
+                        if not Argumentator.__seems_realised(cause,consider_default) and cause.is_mutable(N):
                             return cause
-                            
-            # Or we are trying to make T happen and look for a way to do so.
-            else:
-                for cause in cause_list:
-                    if not Argumentator.__seems_realised(cause,consider_default) and cause.is_mutable(N):
-                        return cause
         return None
         
 
@@ -101,21 +101,14 @@ class Argumentator:
         #Solution : Make T happen if it is possible and value is positive.
         if N>0 and T.is_possible():
             print("------> Decision : %s"%T.name)
-            self.world.update_based_on(T)
+            self.world.make_true(T)
             T.value = N
             T.negation.value = -N
             return None
         
         #Abduction : find a mutable cause C for T and start procedure for (C,N)
-        
-        #First we try while considering our default asumptions to be true.
         C = Argumentator.__find_mutable_cause(T,N)
-        
-        # If no mutable cause was found, we try again by ignoring our default 
-        # asumptions
-        if C==None:
-            C = Argumentator.__find_mutable_cause(T,N,False)        
-    
+
         if C!=None:
             print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
             new_conflict = self.__procedure(C,N,False)
