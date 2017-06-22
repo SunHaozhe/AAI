@@ -17,8 +17,8 @@ if __name__ == '__main__':
         print(message)
         sys.exit()
     filename = sys.argv[1]
-    predicates,logical_links = Preprocessor.setup_data(filename)
-    world = World(predicates,logical_links)
+    predicates,logical_links,initial_situations = Preprocessor.setup_data(filename)
+    world = World(predicates,logical_links,initial_situations)
     argumentator = Argumentator(world)
     argumentator.argue()
 
@@ -26,9 +26,10 @@ if __name__ == '__main__':
 from preprocessing import Preprocessor
 from argumenting import Argumentator
 from SeparateWorld import World
+filename = "tennis.pl"
 filename = "doors.pl"
-predicates,logical_links = Preprocessor.setup_data(filename)
-world = World(predicates,logical_links)
+predicates,logical_links,initial_situations = Preprocessor.setup_data(filename)
+world = World(predicates,logical_links,initial_situations)
 argumentator = Argumentator(world)
 argumentator.argue()
 """

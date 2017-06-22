@@ -5,9 +5,8 @@ Created on Fri Jun 16 18:12:33 2017
 @author: Tasslehoff
 """
 
-
-
 from abduction import Abductor
+from debug import Debug
 
 class Argumentator:
     
@@ -21,7 +20,7 @@ class Argumentator:
         if predicate == None:
             return False
         T,N = predicate
-        return ((Argumentator.__seems_realised(T) and N<0) or (Argumentator.__seems_realised(T.negation) and N>0))
+        return ((T.realised and N<0) or (T.negation.realised and N>0))
       
         
     def __find_conflict(self):
@@ -61,14 +60,17 @@ class Argumentator:
                             return cause
         return None
         
-
-    @staticmethod    
-    def __reconsider(T):
+         
+    def __reconsider(self,T):
         """Prompts the user to reconsider the value of a predicate if he wishes
         to do so.
         """
-        print("Do you want to reconsider the value of %s?" % T.name)
-        print("(current value is %d)" % T.value)
+        if T.name[0]=='-':
+            R = T.negation
+        else:
+            R = T
+        print("Do you want to reconsider the value of %s?" % R.name)
+        print("(current value is %d)" % R.value)
         print("[y/n]")
         valid = {"yes": True, "y": True, "ye": True,
                  "no": False, "n": False}
@@ -78,14 +80,14 @@ class Argumentator:
             print("Please respond with 'yes' or 'no' (or 'y' or 'n').")
             choice = input().lower()
         if valid[choice]:
-            print("\nWhat value would you like to give to %s ?" % T.name)
-            print("(current value is %d)" % T.value)
+            print("\nWhat value would you like to give to %s ?" % R.name)
+            print("(current value is %d)" % R.value)
             choice = input()
             while not ((len(choice)>1 and choice[0] in ('-', '+') and choice[1:].isdigit()) or choice.isdigit()):
                 print("Please enter an integer.")
                 choice = input()
-            T.value = int(choice)
-            T.negation.value = -int(choice)
+            R.value = int(choice)
+            R.negation.value = -int(choice)
         print("")
         
        
@@ -97,11 +99,10 @@ class Argumentator:
         
         T.default = 0
         T.negation.default = 0
-        
         #Solution : Make T happen if it is possible and value is positive.
-        if N>0 and T.is_possible():
+        if N>0 and (not T.realised) and T.is_possible():
             print("------> Decision : %s"%T.name)
-            self.world.make_true(T)
+            self.world.update_based_on(T)
             T.value = N
             T.negation.value = -N
             return None
@@ -111,12 +112,15 @@ class Argumentator:
 
         if C!=None:
             print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
-            new_conflict = self.__procedure(C,N,False)
+            if abs(C.value)<abs(N):
+                C.value = N
+                C.negation.value = -N
+            new_conflict = self.__procedure(C,C.value,False)
             if new_conflict != None:
                 return new_conflict 
-            else:
-                return (T,N)
-        
+
+            return (T,N)
+
         #Negation : Restart the procedure with the conflict (not T,-N)
         if not negated:
             print("Negating %s, considering %s"%(T.name,T.negation.name))
@@ -126,24 +130,26 @@ class Argumentator:
         
         #Give up : Make v(T) = -N, and reconsider if T is reconsiderable.
         else:
-            print(" Giving up: %s is stored with necessity %d"%(T.negation.name,N))
+            if T.realised:
+                print("Giving up: %s is stored with necessity %d"%(T.name,-N))
+            else:
+                print("Giving up: %s is stored with necessity %d"%(T.negation.name,N))
             T.value = -N
             T.negation.value = N
             if T.reconsiderable:
-                Argumentator.__reconsider(T.negation)
-            return (T,-N)
-        return (T,N)
+                self.__reconsider(T.negation)
+            return None
 
-            
+
     def argue(self):
         """Starts the whole CAN procedure on the specified dictionnary of 
         predicates.
         """
         
         print("\n*********\n**START**\n*********\n")
-        
         conflict = self.__find_conflict()
         while conflict != None:
+            Debug.show_truth(self.world)
             (T,N)=conflict
             print("Considering conflict of intensity %d with %s"%(N,T.name))
             new_conflict = self.__procedure(T,N,False)
