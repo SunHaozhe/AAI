@@ -215,6 +215,8 @@ class Preprocessor:
         logical_links = []
         for name in data_dict['predicates']:
             
+            nb_arguments == 0
+            
             if name[0]!='-':
                 negation_name = '-'+name
             else:
@@ -238,9 +240,15 @@ class Preprocessor:
                 default = -1
             else:
                 default = 0
+                
+            for i in range(0, len(return_dict['variable_predicates'])):
+                if name == return_dict['variable_predicates'][i][0]:
+                    nb_arguments == len(return_dict['variable_predicates'][i])
+                    
+                
     
-    
-            predicate = Predicate(name, value, actionable, realised, default)
+            predicate = Predicate(name, value, actionable, realised, default, nb_arguments)
+            predicate.set_arguments
             
             if negation_name in predicates :
                 negation_predicate = predicates[negation_name]
@@ -265,4 +273,7 @@ class Preprocessor:
             
         return predicates,logical_links
 
-        
+  """
+print(return_dict['variable_predicates'])
+print(logical_links)
+"""      

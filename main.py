@@ -22,7 +22,7 @@ if __name__ == '__main__':
 """
 from preprocessing import Preprocessor
 from argumenting import Argumentator
-filename = "doors.pl"
+filename = "tennis.pl"
 predicates,logical_links = Preprocessor.setup_data(filename)
 Argumentator.argue(predicates)
 """

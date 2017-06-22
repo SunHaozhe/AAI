@@ -10,7 +10,7 @@ class Predicate:
     consequences etc.
     """
     
-    def __init__(self, name, value, actionable, realised, default): 
+    def __init__(self, name, value, actionable, realised, default, nb_arguments): 
         self.name = name
         self.value = value
         self.actionable = actionable
@@ -20,10 +20,27 @@ class Predicate:
         self.reconsiderable = (value!=0)
         self.negation = None
         self.logical_links = []
+        self.nb_arguments = nb_arguments
+        self.arguments = []
     
     #-----------------------------
     # Changing the representation of the object for better readability in
     # debugging
+    def set_arguments(self):
+        """Adds the lists of values which may be taken by the variables """
+        if nb_arguments != 0:
+            i == 0
+            while return_dict['variable_predicates'][i][0] != 0:
+                i = i+1
+            for j in range(1, len(return_dict['variable_predicates'])):
+                if (return_dict['variable_predicates'][i][j] == 'X') or (return_dict['variable_predicates'][i][j] == 'Y'):
+                    possible_variable = ['femmes', 'hommes']
+                    
+                elif return_dict['variable_predicates'][i][j] == 'A':
+                    possible_variable = ['3_sets', '5_sets']
+                self.arguments.append(possible_variable)
+    
+    
     def __repr__(self):
         return "Pred_\""+self.name+"\""
     __str__ = __repr__
