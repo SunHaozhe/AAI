@@ -1,0 +1,13 @@
+怎么在MAC上打包PyQT程序
+http://python.jobbole.com/84897/?utm_source=blog.jobbole.com&utm_medium=relatedPosts
+
+使用PyQt来编写第一个Python GUI程序
+http://python.jobbole.com/81276/
+
+Tutorial PyQT5
+http://zetcode.com/gui/pyqt5/
+
+To download PyQT5
+https://www.riverbankcomputing.com/software/pyqt/download5
+
+
