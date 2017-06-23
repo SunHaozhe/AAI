@@ -8,11 +8,12 @@ Created on Thurs Jun 22 2017
 """
 
 import sys
-from PyQt5.QtWidgets import QWidget, QPushButton, QApplication, QMessageBox, QDesktopWidget, QToolTip
+from PyQt5.QtWidgets import QPushButton, QApplication, QMessageBox, QDesktopWidget,\
+                            QToolTip, QMainWindow,QAction, qApp, QTextEdit
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon, QFont
 
-class MainWindow(QWidget):
+class MainWindow(QMainWindow):
     """To define the main window of our program"""
 
     def __init__(self):
@@ -22,18 +23,29 @@ class MainWindow(QWidget):
     def __initUI(self):
         """To initialize the main window"""
 
+        #To set up a status bar
+        self.statusBar()
+
         #To set up a tooltip for the whole program
         QToolTip.setFont(QFont('SansSerif', 10))
         self.setToolTip('Arguing AI')
 
+        #To set up a menu bar
+        exitAction = QAction(QIcon('exit.png'), '&Exit', self)
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application')
+        exitAction.triggered.connect(qApp.quit)
 
-        #To creat a push button to quit the program
-        quit_btn = QPushButton('Quit', self)
-        quit_btn.clicked.connect(QCoreApplication.instance().quit)
-        quit_btn.setToolTip('Click to quit')
-        quit_btn.resize(quit_btn.sizeHint())
-        quit_btn.move(900, 600)
+        menubar = self.menuBar()
+        menubar.setNativeMenuBar(False)  #This command is for Mac OS
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(exitAction)
 
+        #To set up a text editor as the central widget
+        textEdit = QTextEdit()
+        self.setCentralWidget(textEdit)
+
+        #To set up size, position and title of the main window
         self.resize(1000, 800)
         self.__center()
         self.setWindowTitle('Arguing AI')
