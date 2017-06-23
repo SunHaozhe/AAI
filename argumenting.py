@@ -42,7 +42,7 @@ class Argumentator:
     def __find_mutable_cause(T,N):
         """Finds a mutable cause for predicate (T,N)."""
 
-        for cause_list in Abductor.find_causes(T,shuffle=False):
+        for (cause_list,link_type) in Abductor.find_causes(T,shuffle=False):
 
             # If T is realised we are in diagnostic mode and check if all the 
             # causes are are True before trying to tackle one.
@@ -52,11 +52,14 @@ class Argumentator:
                         for cause in cause_list:
                             if cause.is_mutable(N):
                                 return cause
+                        
                                 
                 # Or we are trying to make T happen and look for a way to do so.
                 else:
                     for cause in cause_list:
                         if not Argumentator.__seems_realised(cause,consider_default) and cause.is_mutable(N):
+                            return cause
+                        elif link_type == "incompatibility" and cause.is_mutable(N):
                             return cause
         return None
         
@@ -86,8 +89,16 @@ class Argumentator:
             while not ((len(choice)>1 and choice[0] in ('-', '+') and choice[1:].isdigit()) or choice.isdigit()):
                 print("Please enter an integer.")
                 choice = input()
-            R.value = int(choice)
-            R.negation.value = -int(choice)
+            N = int(choice)
+            '''
+            if N*R.value <= 0 and abs(N)>=abs(R.value):
+                for pred_name in self.world.predicates:
+                    pred = self.world.predicates[pred_name]
+                    if abs(pred.value)<=abs(N):
+                        pred.value = 0
+            '''
+            R.value = N
+            R.negation.value = -N
         print("")
         
        
@@ -100,7 +111,7 @@ class Argumentator:
         T.default = 0
         T.negation.default = 0
         #Solution : Make T happen if it is possible and value is positive.
-        if N>0 and (not T.realised) and T.is_possible():
+        if N>0 and T.is_possible():
             print("------> Decision : %s"%T.name)
             self.world.update_based_on(T)
             T.value = N
@@ -114,7 +125,7 @@ class Argumentator:
             print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
             if abs(C.value)<abs(N):
                 C.value = N
-                C.negation.value = -N
+                #C.negation.value = -N
             new_conflict = self.__procedure(C,C.value,False)
             if new_conflict != None:
                 return new_conflict 

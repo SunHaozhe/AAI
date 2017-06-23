@@ -7,7 +7,7 @@ Created on Thu Jun 22 16:49:20 2017
 
 class Debug:
     
-    DEBUG = False
+    DEBUG = True
     
     def do_nothing(*arg):
         pass

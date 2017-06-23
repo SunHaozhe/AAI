@@ -135,11 +135,11 @@ class Preprocessor:
             else:
                 default = 0
             
-            
-            if name[0]=='-' and (name not in data_dict['initial_situations']):
-                if negation_name not in data_dict['initial_situations'] and default>=0:
+
+            if (name not in data_dict['initial_situations']):
+                if negation_name not in data_dict['initial_situations'] and default==1:
                     data_dict['initial_situations'].append(name)
-            
+
     
             realised = name in data_dict['initial_situations']
                 

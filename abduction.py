@@ -19,4 +19,6 @@ class Abductor:
             if causes != None:
                 if shuffle:
                     random.shuffle(causes)
-                yield causes
+                yield causes,link.link_type
+                
+#causes = Logic.find_causes(T,l)

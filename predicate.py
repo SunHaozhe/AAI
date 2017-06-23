@@ -15,6 +15,7 @@ class Predicate:
         self.value = value
         self.actionable = actionable
         self.realised = realised
+        self.inferred = False
         self.default = default
         self.reconsiderable = (value!=0)
         self.negation = None
@@ -32,7 +33,7 @@ class Predicate:
     
     def is_mutable(self,N):
         """Indicates if the predicate is mutable with intensity N."""
-        return (N*self.value<=0 and abs(self.value)<abs(N)) or N*self.value>=0
+        return (N*self.value<=0 and abs(self.value)<abs(N))
         
     def is_possible(self):
         """Indicates if the predicate is possible."""
