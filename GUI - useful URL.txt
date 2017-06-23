@@ -10,4 +10,5 @@ http://zetcode.com/gui/pyqt5/
 To download PyQT5
 https://www.riverbankcomputing.com/software/pyqt/download5
 
-
+Python - Mac下PyCharm&PyQt5环境搭建
+http://gavinliu.cn/2016/01/17/Python-Mac%E4%B8%8BPyCharm-PyQt5%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA/
