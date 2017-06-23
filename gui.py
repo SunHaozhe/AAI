@@ -8,8 +8,9 @@ Created on Thurs Jun 22 2017
 """
 
 import sys
-from PyQt5.QtWidgets import QPushButton, QApplication, QMessageBox, QDesktopWidget,\
-                            QToolTip, QMainWindow,QAction, qApp, QTextEdit
+from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWidget,
+                            QToolTip, QMainWindow,QAction, qApp, QTextEdit, QGridLayout,
+                             QLabel, QLineEdit, QWidget, QHBoxLayout)
 from PyQt5.QtCore import QCoreApplication
 from PyQt5.QtGui import QIcon, QFont
 
@@ -26,10 +27,6 @@ class MainWindow(QMainWindow):
         #To set up a status bar
         self.statusBar()
 
-        #To set up a tooltip for the whole program
-        QToolTip.setFont(QFont('SansSerif', 10))
-        self.setToolTip('Arguing AI')
-
         #To set up a menu bar
         exitAction = QAction(QIcon('exit.png'), '&Exit', self)
         exitAction.setShortcut('Ctrl+Q')
@@ -41,9 +38,10 @@ class MainWindow(QMainWindow):
         fileMenu = menubar.addMenu('&File')
         fileMenu.addAction(exitAction)
 
-        #To set up a text editor as the central widget
-        textEdit = QTextEdit()
-        self.setCentralWidget(textEdit)
+        #To set up the main layout
+        _central_widget = QWidget()
+        self.setCentralWidget(_central_widget)
+        _central_widget.setLayout(self.__setupGridLayout())
 
         #To set up size, position and title of the main window
         self.resize(1000, 800)
@@ -73,6 +71,22 @@ class MainWindow(QMainWindow):
         center_point = QDesktopWidget().availableGeometry().center()
         rectangle_position.moveCenter(center_point)
         self.move(rectangle_position.topLeft())
+
+    def __setupGridLayout(self):
+        grid = QGridLayout()
+        grid.setSpacing(10)
+
+        inputLabel = QLabel('Input : ')
+        outputLabel = QLabel('Output :')
+        inputEdit = QLineEdit()
+        outputEdit = QTextEdit()
+
+        grid.addWidget(inputLabel, 1, 0)
+        grid.addWidget(inputEdit, 1, 1)
+        grid.addWidget(outputLabel, 2, 0)
+        grid.addWidget(outputEdit, 2, 1,10,1)
+
+        return grid
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
