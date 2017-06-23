@@ -85,6 +85,11 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	joue_hommes_5_sets <=== passer_hommes_5sets.
 	joue_femmes_3_sets <=== passer_femmes_3sets.
 	joue_femmes_5_sets <=== passer_femmes_5sets.
+
+	-passer_hommes_3_sets <=== -capable_hommes_3sets.
+	-passer_hommes_5_sets <=== -capable_hommes_5sets.
+	-passer_femmes_3_sets <=== -capable_femmes_3sets.
+	-passer_femmes_5_sets <=== -capable_femmes_5sets.
 	
 	% prerequisites
 

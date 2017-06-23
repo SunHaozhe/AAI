@@ -7,11 +7,10 @@ Created on Thu Jun 22 16:49:20 2017
 
 class Debug:
     
-    DEBUG = True
+    DEBUG = False
     @classmethod
     def do_nothing(*arg):
         pass
-    
     @classmethod
     def show_truth(cls, world):
         for pred_name in world.predicates:
