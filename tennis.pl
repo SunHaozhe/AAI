@@ -39,7 +39,6 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	
 	
 	% initial facts
-	initial_situation(-egalite_femmes_hommes).
 	initial_situation(joue_femmes_3_sets).
 	initial_situation(joue_hommes_5_sets).
 	initial_situation(court_marathon_femmes).
@@ -99,6 +98,6 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 
 	% preferences (termes positifs seulement)
 	preference(egalite_femmes_hommes, 10).
-	preference(audience_femmes), 5).
-	preference(audience_hommes), 5).
+	preference(audience_femmes, 5).
+	preference(audience_hommes, 5).
 	preference(joue_hommes_5_sets, 5).

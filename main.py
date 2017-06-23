@@ -7,6 +7,7 @@ Created on Sat Jun 17 18:24:40 2017
 
 from preprocessing import Preprocessor
 from argumenting import Argumentator
+from SeparateWorld import World
 import sys
 
 if __name__ == '__main__':
@@ -16,13 +17,19 @@ if __name__ == '__main__':
         print(message)
         sys.exit()
     filename = sys.argv[1]
-    predicates,logical_links = Preprocessor.setup_data(filename)
-    Argumentator.argue(predicates)
+    predicates,logical_links,initial_situations = Preprocessor.setup_data(filename)
+    world = World(predicates,logical_links,initial_situations)
+    argumentator = Argumentator(world)
+    argumentator.argue()
 
 """
 from preprocessing import Preprocessor
 from argumenting import Argumentator
+from SeparateWorld import World
 filename = "tennis.pl"
-predicates,logical_links = Preprocessor.setup_data(filename)
-Argumentator.argue(predicates)
+predicates,logical_links,initial_situations = Preprocessor.setup_data(filename)
+world = World(predicates,logical_links,initial_situations)
+argumentator = Argumentator(world)
+argumentator.argue()
 """
+
