@@ -11,7 +11,7 @@ import sys
 from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWidget,
                             QToolTip, QMainWindow,QAction, qApp, QTextEdit, QGridLayout,
                              QLabel, QLineEdit, QWidget, QHBoxLayout)
-from PyQt5.QtCore import QCoreApplication
+from PyQt5.QtCore import QCoreApplication, QSize
 from PyQt5.QtGui import QIcon, QFont
 
 class MainWindow(QMainWindow):
@@ -39,12 +39,15 @@ class MainWindow(QMainWindow):
         fileMenu.addAction(exitAction)
 
         #To set up the main layout
-        _central_widget = QWidget()
-        self.setCentralWidget(_central_widget)
-        _central_widget.setLayout(self.__setupGridLayout())
+        self._central_widget = QWidget()
+        self.setCentralWidget(self._central_widget)
+        self._central_widget.setLayout(self.__setupGridLayout())
 
         #To set up size, position and title of the main window
-        self.resize(1000, 800)
+        sizeTuple = (1200, 600)
+        self.resize(*sizeTuple)
+        self.setMaximumSize(*sizeTuple)
+        self.setMinimumSize(*sizeTuple)
         self.__center()
         self.setWindowTitle('Arguing AI')
 
