@@ -1,54 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>800</width>
-    <height>600</height>
+    <width>705</width>
+    <height>329</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Form</string>
   </property>
-  <widget class="QWidget" name="centralwidget"/>
-  <widget class="QMenuBar" name="menubar">
+  <widget class="QGroupBox" name="groupBox">
    <property name="geometry">
     <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>800</width>
-     <height>22</height>
+     <x>40</x>
+     <y>50</y>
+     <width>251</width>
+     <height>81</height>
     </rect>
    </property>
-   <widget class="QMenu" name="menuFile">
-    <property name="title">
-     <string>File</string>
+   <property name="title">
+    <string>Lala</string>
+   </property>
+   <widget class="QComboBox" name="comboBox">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>20</y>
+      <width>104</width>
+      <height>26</height>
+     </rect>
     </property>
-    <addaction name="actionAbout"/>
-    <addaction name="actionQuit"/>
    </widget>
-   <widget class="QMenu" name="menuAide">
-    <property name="title">
-     <string>Aide</string>
-    </property>
-   </widget>
-   <addaction name="menuFile"/>
-   <addaction name="menuAide"/>
   </widget>
-  <widget class="QStatusBar" name="statusbar"/>
-  <action name="actionAbout">
-   <property name="text">
-    <string>About</string>
-   </property>
-  </action>
-  <action name="actionQuit">
-   <property name="text">
-    <string>Quit</string>
-   </property>
-  </action>
  </widget>
  <resources/>
  <connections/>
