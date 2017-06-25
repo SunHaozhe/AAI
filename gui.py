@@ -143,6 +143,7 @@ class MainWindow(QMainWindow):
         self.logical_links.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.reality_status.setModel(rsModel)
+        self.reality_status.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
     def __initButtons(self):
         self.help_button.clicked.connect(self.showHelpDialog)
