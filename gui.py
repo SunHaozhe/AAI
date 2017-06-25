@@ -28,15 +28,7 @@ class MainWindow(QMainWindow):
         self.statusBar()
 
         #To set up a menu bar
-        exitAction = QAction(QIcon('exit.png'), '&Exit', self)
-        exitAction.setShortcut('Ctrl+Q')
-        exitAction.setStatusTip('Exit application')
-        exitAction.triggered.connect(qApp.quit)
-
-        menubar = self.menuBar()
-        menubar.setNativeMenuBar(False)  #This command is for Mac OS
-        fileMenu = menubar.addMenu('&File')
-        fileMenu.addAction(exitAction)
+        self.__initMenuBar()
 
         #To set up the main layout
         self._central_widget = QWidget()
@@ -56,6 +48,18 @@ class MainWindow(QMainWindow):
 
         self.show()
 
+
+    def __initMenuBar(self):
+        pass
+        """exitAction = QAction(QIcon('exit.png'), '&Exit', self)
+        exitAction.setShortcut('Ctrl+Q')
+        exitAction.setStatusTip('Exit application')
+        exitAction.triggered.connect(qApp.quit)
+
+        menubar = self.menuBar()
+        menubar.setNativeMenuBar(False)  # This command is for Mac OS
+        fileMenu = menubar.addMenu('&File')
+        fileMenu.addAction(exitAction)"""
 
     def closeEvent(self, event):
         """To reimplement the behavior when we click on the X button."""
