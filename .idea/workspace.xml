@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="169c3ab5-2df2-4fda-90c5-74032e866b34" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QtDesigner_workspace/Example.py" afterPath="$PROJECT_DIR$/QtDesigner_workspace/Example.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QtDesigner_workspace/Example.ui" afterPath="$PROJECT_DIR$/QtDesigner_workspace/Example.ui" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/model_view.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gui.py" afterPath="$PROJECT_DIR$/gui.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,8 +22,8 @@
       <file leaf-file-name="gui.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="100" column="38" lean-forward="true" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+            <state relative-caret-position="342">
+              <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
               <folding>
                 <element signature="e#103#113#0" expanded="true" />
               </folding>
@@ -31,12 +31,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Example.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/QtDesigner_workspace/Example.py">
+      <file leaf-file-name="model_view.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model_view.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="958">
-              <caret line="69" column="31" lean-forward="false" selection-start-line="69" selection-start-column="31" selection-end-line="69" selection-end-column="31" />
-              <folding />
+            <state relative-caret-position="130">
+              <caret line="32" column="31" lean-forward="false" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+              <folding>
+                <element signature="e#101#118#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,6 +64,7 @@
         <option value="$PROJECT_DIR$/GUI-URLs-utiles.txt" />
         <option value="$PROJECT_DIR$/QtDesigner_workspace/Example.py" />
         <option value="$PROJECT_DIR$/gui.py" />
+        <option value="$PROJECT_DIR$/model_view.py" />
       </list>
     </option>
   </component>
@@ -669,10 +672,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model_view.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="130">
+          <caret line="32" column="31" lean-forward="false" selection-start-line="32" selection-start-column="31" selection-end-line="32" selection-end-column="31" />
+          <folding>
+            <element signature="e#101#118#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="100" column="38" lean-forward="true" selection-start-line="100" selection-start-column="38" selection-end-line="100" selection-end-column="38" />
+        <state relative-caret-position="342">
+          <caret line="127" column="0" lean-forward="true" selection-start-line="127" selection-start-column="0" selection-end-line="127" selection-end-column="0" />
           <folding>
             <element signature="e#103#113#0" expanded="true" />
           </folding>

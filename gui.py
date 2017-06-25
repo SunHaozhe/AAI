@@ -11,9 +11,11 @@ import sys
 from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWidget,
                             QToolTip, QMainWindow,QAction, qApp, QTextEdit, QGridLayout,
                              QLabel, QLineEdit, QWidget, QHBoxLayout, QComboBox, QFrame,
-                             QGroupBox, QListWidget, QTableWidget, QListView, QTableView)
+                             QGroupBox, QListWidget, QTableWidget, QListView, QTableView,
+                             QAbstractItemView)
 from PyQt5.QtCore import QCoreApplication, QSize
 from PyQt5.QtGui import QIcon, QFont
+from model_view import *
 
 class MainWindow(QMainWindow):
     """To define the main window of our program"""
@@ -122,12 +124,20 @@ class MainWindow(QMainWindow):
         grid.addWidget(self.console,           4, 2, *editLineSpanTuple)
         grid.addWidget(self.logical_links,     4, 4, *editLineSpanTuple)
 
+        self.__makeModelViewLink()
+
         return grid
 
     def __initComboBox(self):
         self.combo_box.addItem("Doors")
         self.combo_box.addItem("Tennis")
         self.combo_box.addItem("Proportional")
+
+    def __makeModelViewLink(self):
+        self.logical_links.setModel(llModel)
+        self.logical_links.setEditTriggers(QAbstractItemView.NoEditTriggers)
+
+        self.reality_status.setModel(rsModel)
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
