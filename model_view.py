@@ -48,3 +48,4 @@ llModel = QStringListModel(data0)
 #Reality status
 data1 = [["The door is repainted","True"], ["The door is wrecked", "False"], ["The door is beautiful", "True"]] # An example
 rsModel = RsModel(data1)
+

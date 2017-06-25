@@ -12,10 +12,13 @@ from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWid
                             QToolTip, QMainWindow,QAction, qApp, QTextEdit, QGridLayout,
                              QLabel, QLineEdit, QWidget, QHBoxLayout, QComboBox, QFrame,
                              QGroupBox, QListWidget, QTableWidget, QListView, QTableView,
-                             QAbstractItemView)
-from PyQt5.QtCore import QCoreApplication, QSize
+                             QAbstractItemView, QDialog)
+from PyQt5.QtCore import QCoreApplication, QSize, QMetaObject
 from PyQt5.QtGui import QIcon, QFont
 from model_view import *
+from dialogs import *
+from random import randint
+
 
 class MainWindow(QMainWindow):
     """To define the main window of our program"""
@@ -126,6 +129,8 @@ class MainWindow(QMainWindow):
 
         self.__makeModelViewLink()
 
+        self.__initButtons()
+
         return grid
 
     def __initComboBox(self):
@@ -138,6 +143,19 @@ class MainWindow(QMainWindow):
         self.logical_links.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
         self.reality_status.setModel(rsModel)
+
+    def __initButtons(self):
+        self.help_button.clicked.connect(self.showHelpDialog)
+
+    def showHelpDialog(self):
+        dialog = QDialog()
+        if randint(1,6) % 2 == 1:
+            dialog.ui = Ui_Dialog1()
+        else:
+            dialog.ui = Ui_Dialog2()
+        dialog.ui.setupUi(dialog)
+        dialog.exec_()
+        dialog.show()
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
