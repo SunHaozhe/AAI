@@ -10,7 +10,8 @@ Created on Thurs Jun 22 2017
 import sys
 from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWidget,
                             QToolTip, QMainWindow,QAction, qApp, QTextEdit, QGridLayout,
-                             QLabel, QLineEdit, QWidget, QHBoxLayout, QComboBox, QGroupBox)
+                             QLabel, QLineEdit, QWidget, QHBoxLayout, QComboBox, QFrame,
+                             QGroupBox, QListWidget, QTableWidget, QListView, QTableView)
 from PyQt5.QtCore import QCoreApplication, QSize
 from PyQt5.QtGui import QIcon, QFont
 
@@ -83,7 +84,7 @@ class MainWindow(QMainWindow):
         grid = QGridLayout()
         grid.setSpacing(10)
 
-        self.theme_label = QLabel("Theme :",self)
+        self.theme_label = QLabel("                                     Theme :",self)
         self.combo_box = QComboBox(self)
         self.__initComboBox()
         self.begin_button = QPushButton("Begin",self)
@@ -94,26 +95,32 @@ class MainWindow(QMainWindow):
         self.reality_status_label   = QLabel("Reality status :",self)
         self.console_label          = QLabel("Console :", self)
         self.logical_links_label    = QLabel("Logical links :",self)
-        self.reality_status_edit    = QTextEdit()
-        self.console_edit           = QTextEdit()
-        self.logical_links_edit     = QTextEdit()
-        self.reality_status_edit.setReadOnly(True)
-        self.console_edit.setReadOnly(True)
-        self.logical_links_edit.setReadOnly(True)
+        self.reality_status    = QTableView(self)
+        self.console           = QTextEdit()
+        self.logical_links     = QListView(self)
+        self.console.setReadOnly(True)
+
+        """
+        self.reality_status.setColumnCount(3)
+        self.reality_status.setRowCount(10)
+        for i in range(10):
+            self.reality_status.setSpan(i, 0, 1, 2)
+        """
 
         grid.addWidget(self.theme_label,            1, 0)
         grid.addWidget(self.combo_box,              1, 1)
         grid.addWidget(self.begin_button,           2, 0)
         grid.addWidget(self.pause_button,           2, 1)
         grid.addWidget(self.reset_button,           2, 2)
-        grid.addWidget(self.help_button,            1, 2)
+        grid.addWidget(self.help_button,            2, 3)
+
         grid.addWidget(self.reality_status_label,   3, 0)
-        grid.addWidget(self.console_label,          3, 1)
-        grid.addWidget(self.logical_links_label,    3, 2)
-        editLineSpanTuple = (20, 1)
-        grid.addWidget(self.reality_status_edit,    4, 0, *editLineSpanTuple)
-        grid.addWidget(self.console_edit,           4, 1, *editLineSpanTuple)
-        grid.addWidget(self.logical_links_edit,     4, 2, *editLineSpanTuple)
+        grid.addWidget(self.console_label,          3, 2)
+        grid.addWidget(self.logical_links_label,    3, 4)
+        editLineSpanTuple = (20, 2)
+        grid.addWidget(self.reality_status,    4, 0, *editLineSpanTuple)
+        grid.addWidget(self.console,           4, 2, *editLineSpanTuple)
+        grid.addWidget(self.logical_links,     4, 4, *editLineSpanTuple)
 
         return grid
 

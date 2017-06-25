@@ -1,41 +1,166 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Form</class>
- <widget class="QWidget" name="Form">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>705</width>
-    <height>329</height>
+    <width>800</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Form</string>
+   <string>MainWindow</string>
   </property>
-  <widget class="QGroupBox" name="groupBox">
-   <property name="geometry">
-    <rect>
-     <x>40</x>
-     <y>50</y>
-     <width>251</width>
-     <height>81</height>
-    </rect>
-   </property>
-   <property name="title">
-    <string>Lala</string>
-   </property>
-   <widget class="QComboBox" name="comboBox">
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QListWidget" name="listWidget">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>20</y>
-      <width>104</width>
-      <height>26</height>
+      <x>130</x>
+      <y>100</y>
+      <width>256</width>
+      <height>192</height>
      </rect>
     </property>
+    <item>
+     <property name="text">
+      <string>Nouvel élément</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Nouvel élément</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Nouvel élément</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Nouvel élément</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Nouvel élément</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Nouvel élément</string>
+     </property>
+    </item>
+   </widget>
+   <widget class="QTableWidget" name="tableWidget">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>100</y>
+      <width>256</width>
+      <height>192</height>
+     </rect>
+    </property>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <row>
+     <property name="text">
+      <string>Nouvelle ligne</string>
+     </property>
+    </row>
+    <column>
+     <property name="text">
+      <string>Nouvelle colonne</string>
+     </property>
+    </column>
+    <column>
+     <property name="text">
+      <string>Nouvelle colonne</string>
+     </property>
+    </column>
    </widget>
   </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>800</width>
+     <height>22</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
