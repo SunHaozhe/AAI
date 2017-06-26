@@ -25,12 +25,16 @@ class MainWindow(QMainWindow):
 
     def __init__(self):
         super().__init__()
+
+        self.inputString = ""
+        self.themes = ("Doors", "Tennis", "Proportional")
+        self.themesDict = {self.themes[0]: 0, self.themes[1]: 1, self.themes[2]: 2}
+        self.theme = self.themes[0]
+
         self.__initUI()
 
     def __initUI(self):
         """To initialize the main window"""
-
-        self.inputString = ""
 
         #To set up a status bar
         self.statusBar()
@@ -136,9 +140,14 @@ class MainWindow(QMainWindow):
         return grid
 
     def __initComboBox(self):
-        self.combo_box.addItem("Doors")
-        self.combo_box.addItem("Tennis")
-        self.combo_box.addItem("Proportional")
+        self.combo_box.addItem(self.themes[0])
+        self.combo_box.addItem(self.themes[1])
+        self.combo_box.addItem(self.themes[2])
+
+        self.combo_box.activated[str].connect(self.onActivatedComboBox)
+
+    def onActivatedComboBox(self, text):
+        self.theme = self.themes[self.themesDict[text]]
 
     def __makeModelViewLink(self):
         self.logical_links.setModel(llModel)
@@ -156,19 +165,13 @@ class MainWindow(QMainWindow):
         self.help_button.clicked.connect(self.showHelpDialog)
 
     def showBeginDialog(self):
-
-        text, ok = QInputDialog.getText(self, 'Input Dialog',
-                                        'Enter your name:')
-
+        text, ok = QInputDialog.getText(self, 'Begin', 'Enter your demande: \n e.g. "I want a beautiful door"')
         if ok:
             self.inputString = text
             self.begin_activity()
 
     def begin_activity(self):
         pass
-
-    def cancel_begin_window(self):
-        self.beginDialog.close()
 
     def pause_activity(self):
         pass

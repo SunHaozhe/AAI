@@ -2,9 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="169c3ab5-2df2-4fda-90c5-74032e866b34" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QtDesigner_workspace/Example.py" afterPath="$PROJECT_DIR$/QtDesigner_workspace/Example.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/QtDesigner_workspace/Example.ui" afterPath="$PROJECT_DIR$/QtDesigner_workspace/Example.ui" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/dialogs.py" afterPath="$PROJECT_DIR$/dialogs.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/gui.py" afterPath="$PROJECT_DIR$/gui.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,8 +20,8 @@
       <file leaf-file-name="gui.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/gui.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="224">
-              <caret line="164" column="33" lean-forward="false" selection-start-line="164" selection-start-column="33" selection-end-line="164" selection-end-column="33" />
+            <state relative-caret-position="-18">
+              <caret line="137" column="28" lean-forward="true" selection-start-line="137" selection-start-column="28" selection-end-line="137" selection-end-column="28" />
               <folding>
                 <element signature="e#103#113#0" expanded="true" />
               </folding>
@@ -715,8 +712,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/gui.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="224">
-          <caret line="164" column="33" lean-forward="false" selection-start-line="164" selection-start-column="33" selection-end-line="164" selection-end-column="33" />
+        <state relative-caret-position="-18">
+          <caret line="137" column="28" lean-forward="true" selection-start-line="137" selection-start-column="28" selection-end-line="137" selection-end-column="28" />
           <folding>
             <element signature="e#103#113#0" expanded="true" />
           </folding>
