@@ -144,6 +144,8 @@ class MainWindow(QMainWindow):
 
         self.reality_status.setModel(rsModel)
         self.reality_status.setEditTriggers(QAbstractItemView.NoEditTriggers)
+        self.reality_status.setColumnWidth(0, 300)
+        self.reality_status.setColumnWidth(1, 67.9)
 
     def __initButtons(self):
         self.help_button.clicked.connect(self.showHelpDialog)

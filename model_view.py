@@ -42,7 +42,11 @@ class RsModel(QAbstractTableModel):
 
 
 #logical links
-data0 = ["2", "g", "3"] # An example
+data0 = ["nice_surface <=== burn_off + -wood_wrecked", "nice_surface <=== sanding + -several_layers + -wood_wrecked",
+         "nice_surface <=== filler_compound + -wood_wrecked","nice_doors <=== repaint + nice_surface",
+         "tough_work <=== burn_off + mouldings + -wire_brush",
+         "wood_wrecked <=== wire_brush + soft_wood",
+         "-nice_surface <=== wood_wrecked"] # An example
 llModel = QStringListModel(data0)
 
 #Reality status
