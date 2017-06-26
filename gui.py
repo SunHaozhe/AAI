@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Created on Thurs Jun 22 2017
+Created on Thursday Jun 22 2017
 
 @author: Haozhe Sun
 """
@@ -18,6 +18,7 @@ from PyQt5.QtGui import QIcon, QFont
 from model_view import *
 from dialogs import *
 from random import randint
+from preprocessing import Preprocessor
 
 
 class MainWindow(QMainWindow):
@@ -57,6 +58,8 @@ class MainWindow(QMainWindow):
 
         #We can add an icon if we need
         #self.setWindowIcon(QIcon('XXX.png'))
+
+        self.__updateTheme()
 
         self.show()
 
@@ -148,6 +151,7 @@ class MainWindow(QMainWindow):
 
     def onActivatedComboBox(self, text):
         self.theme = self.themes[self.themesDict[text]]
+        self.__updateTheme()
 
     def __makeModelViewLink(self):
         self.logical_links.setModel(llModel)
@@ -165,7 +169,7 @@ class MainWindow(QMainWindow):
         self.help_button.clicked.connect(self.showHelpDialog)
 
     def showBeginDialog(self):
-        text, ok = QInputDialog.getText(self, 'Begin', 'Enter your demande: \n e.g. "I want a beautiful door"')
+        text, ok = QInputDialog.getText(self, 'Begin', 'Enter your demande: \ne.g. "I want a beautiful door"')
         if ok:
             self.inputString = text
             self.begin_activity()
@@ -188,6 +192,11 @@ class MainWindow(QMainWindow):
         dialog.ui.setupUi(dialog)
         dialog.exec_()
         dialog.show()
+
+    def __updateTheme(self):
+        """self.theme has been modified, we should update the main window"""
+
+        pass
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Created on Sun Jun 25 2017
+Created on Sunday Jun 25 2017
 
 @author: Haozhe Sun
 """

@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 """
-Created on Mon Jun 26 2017
+Created on Monday Jun 26 2017
 
 @author: Haozhe Sun
 """
@@ -16,7 +16,9 @@ class Help_Dialog1(object):
         Dialog.setObjectName("Dialog")
         Dialog.resize(350, 250)
 
-        strMessage = "Tap space to continue !"
+        strMessage = "This is a user-friendly argumentator software. \n\n" \
+                     "To begin the program, select one theme \namong the " \
+                     "proposed themes and click \non the Begin button to enter your request."
         self.dialoglabel = QtWidgets.QLabel(Dialog)
         self.dialoglabel.setText(strMessage)
 
