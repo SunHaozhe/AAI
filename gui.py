@@ -12,7 +12,7 @@ from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWid
                             QToolTip, QMainWindow,QAction, qApp, QTextEdit, QGridLayout,
                              QLabel, QLineEdit, QWidget, QHBoxLayout, QComboBox, QFrame,
                              QGroupBox, QListWidget, QTableWidget, QListView, QTableView,
-                             QAbstractItemView, QDialog)
+                             QAbstractItemView, QDialog, QVBoxLayout)
 from PyQt5.QtCore import QCoreApplication, QSize, QMetaObject
 from PyQt5.QtGui import QIcon, QFont
 from model_view import *
@@ -29,6 +29,8 @@ class MainWindow(QMainWindow):
 
     def __initUI(self):
         """To initialize the main window"""
+
+        self.inputString = ""
 
         #To set up a status bar
         self.statusBar()
@@ -148,14 +150,38 @@ class MainWindow(QMainWindow):
         self.reality_status.setColumnWidth(1, 67.9)
 
     def __initButtons(self):
+        self.begin_button.clicked.connect(self.showBeginDialog)
+        self.pause_button.clicked.connect(self.pause_activity)
+        self.reset_button.clicked.connect(self.reset_activity)
         self.help_button.clicked.connect(self.showHelpDialog)
+
+    def showBeginDialog(self):
+
+        text, ok = QInputDialog.getText(self, 'Input Dialog',
+                                        'Enter your name:')
+
+        if ok:
+            self.inputString = text
+            self.begin_activity()
+
+    def begin_activity(self):
+        pass
+
+    def cancel_begin_window(self):
+        self.beginDialog.close()
+
+    def pause_activity(self):
+        pass
+
+    def reset_activity(self):
+        pass
 
     def showHelpDialog(self):
         dialog = QDialog()
         if randint(1,6) % 2 == 1:
-            dialog.ui = Ui_Dialog1()
+            dialog.ui = Help_Dialog1()
         else:
-            dialog.ui = Ui_Dialog2()
+            dialog.ui = Help_Dialog2()
         dialog.ui.setupUi(dialog)
         dialog.exec_()
         dialog.show()

@@ -8,9 +8,10 @@ Created on Mon Jun 26 2017
 """
 
 from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5.QtWidgets import QInputDialog
 from PyQt5.QtGui import QPixmap
 
-class Ui_Dialog1(object):
+class Help_Dialog1(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(350, 250)
@@ -24,9 +25,9 @@ class Ui_Dialog1(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Help", "Help"))
 
-class Ui_Dialog2(object):
+class Help_Dialog2(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(350, 250)
@@ -40,4 +41,4 @@ class Ui_Dialog2(object):
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
-        Dialog.setWindowTitle(_translate("Dialog", "Dialog"))
+        Dialog.setWindowTitle(_translate("Help", "Help"))
