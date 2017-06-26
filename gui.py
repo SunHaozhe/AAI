@@ -19,6 +19,7 @@ from model_view import *
 from dialogs import *
 from random import randint
 from preprocessing import Preprocessor
+from themes import *
 
 
 class MainWindow(QMainWindow):
@@ -28,9 +29,9 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         self.inputString = ""
-        self.themes = ("Doors", "Tennis", "Proportional")
-        self.themesDict = {self.themes[0]: 0, self.themes[1]: 1, self.themes[2]: 2}
-        self.theme = self.themes[0]
+        self.themeNames = ("Doors", "Tennis", "Proportional")
+        self.themeNameDict = {self.themeNames[0]: 0, self.themeNames[1]: 1, self.themeNames[2]: 2}
+        self.theme = Theme(self.themeNames[0])
 
         self.__initUI()
 
@@ -143,14 +144,14 @@ class MainWindow(QMainWindow):
         return grid
 
     def __initComboBox(self):
-        self.combo_box.addItem(self.themes[0])
-        self.combo_box.addItem(self.themes[1])
-        self.combo_box.addItem(self.themes[2])
+        self.combo_box.addItem(self.themeNames[0])
+        self.combo_box.addItem(self.themeNames[1])
+        self.combo_box.addItem(self.themeNames[2])
 
         self.combo_box.activated[str].connect(self.onActivatedComboBox)
 
     def onActivatedComboBox(self, text):
-        self.theme = self.themes[self.themesDict[text]]
+        self.theme = Theme(self.themeNames[self.themeNameDict[text]])
         self.__updateTheme()
 
     def __makeModelViewLink(self):
@@ -195,6 +196,7 @@ class MainWindow(QMainWindow):
 
     def __updateTheme(self):
         """self.theme has been modified, we should update the main window"""
+        """changes models to update list view and table view, initialize input string and then, configure the console"""
 
         pass
 

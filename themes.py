@@ -7,9 +7,9 @@ Created on Monday Jun 26 2017
 @author: Haozhe Sun
 """
 
-class theme():
+class Theme():
     def __init__(self, text):
-        self.name = text
+        self.name = text                      #only takes 3 possible strings "doors", "tennis" and "proportional"
         self.predicates = []                  #reality status, list of strings
         self.logical_links = []               #logical links, list of strings
         self.procedureFinished = False        #if the procedure is blocked or finished, boolean
