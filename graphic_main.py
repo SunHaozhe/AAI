@@ -11,7 +11,15 @@ from preprocessing import Preprocessor
 from argumenting import Argumentator
 import sys
 from gui import *
+import threading
 
+def t1_function():
+    Argumentator.argue(predicates)
+
+def t2_function():
+    app = QApplication(sys.argv)
+    mainWindow = MainWindow()
+    sys.exit(app.exec_())
 
 if __name__ == '__main__':
     if len(sys.argv) != 2:
@@ -21,10 +29,14 @@ if __name__ == '__main__':
         sys.exit()
     filename = sys.argv[1]
     predicates,logical_links = Preprocessor.setup_data(filename)
-    #Argumentator.argue(predicates)
+
+    #terminal thread
+    t1 = threading.Thread(target=t1_function, name='terminalThread')
+    t1.start()
 
     #graphic interface
     app = QApplication(sys.argv)
     mainWindow = MainWindow()
     sys.exit(app.exec_())
+
 
