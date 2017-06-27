@@ -180,7 +180,7 @@ class MainWindow(QMainWindow):
     def begin_activity(self):
         self.editIsVisible = True
         self.console.setText(self.inputString)
-        self.console.setText("\n*************Argumentator begins to argument********************\n")
+        self.console.append("\n*****\nArgumentator begins to argument\n*****\n")
         next(self.themeIterator)
         pass
 
