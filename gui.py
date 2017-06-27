@@ -167,7 +167,7 @@ class MainWindow(QMainWindow):
 
     def __initButtons(self):
         self.begin_button.clicked.connect(self.showBeginDialog)
-        self.pause_button.clicked.connect(self.continue_activity)
+        self.continue_button.clicked.connect(self.continue_activity)
         self.reset_button.clicked.connect(self.reset_activity)
         self.help_button.clicked.connect(self.showHelpDialog)
 
