@@ -107,7 +107,7 @@ class Preprocessor:
         dictionary_list_texts = re.findall(pattern, text, flags=re.MULTILINE)
         for dictionary_text in dictionary_list_texts:
             
-            word = list(re.findall("([\w\s*?]+)", dictionary_text))
+            word = list(re.findall("([-?\w\s*?]+)", dictionary_text))
             dictionary[word[0]] = word[1]
 
             
