@@ -8,11 +8,17 @@ import random
 from logical import Logic
 
 class Abductor:
-    @classmethod
-    def find_causes(cls, T,shuffle=False):
-        link_indices = list(range(len(T.backward_links)))
+    @classmethod 
+    def find_causes(cls,T,shuffle=False):
+        l = len(T.backward_links)
+        causal_link_indices = [i for i in range(l) if T.backward_links[i].link_type=="causal"]
+        other_link_indices = [i for i in range(l) if i not in causal_link_indices]
+        
+        
         if shuffle:
-            random.shuffle(link_indices)
+            random.shuffle(causal_link_indices)
+            random.shuffle(other_link_indices)
+        link_indices = causal_link_indices+other_link_indices
         for link_index in link_indices:
             link = T.backward_links[link_index]
             causes = Logic.find_causes(T,link)

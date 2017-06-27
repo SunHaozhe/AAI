@@ -18,10 +18,10 @@ class Debug:
                 pred = world.predicates[pred_name]
                 negpred = world.predicates[pred_name].negation
                 l = len(pred_name)
-                real = pred.realised
-                rl = len(str(pred.realised))
-                negreal = negpred.realised
-                nrl = len(str(negpred.realised))
+                real = pred.seems
+                rl = len(str(pred.seems))
+                negreal = negpred.seems
+                nrl = len(str(negpred.seems))
                 print("-"*50)
                 print(pred_name," "*(20-l)+"|   ", real," "*(10-rl)+"|   ", pred.value)
                 print("-"*50)
