@@ -15,7 +15,7 @@ class Predicate:
         self.value = value
         self.actionable = actionable
         self.realised = realised
-        self.inferred = False
+        self.seems = default
         self.default = default
         self.reconsiderable = (value!=0)
         self.negation = None
@@ -37,7 +37,11 @@ class Predicate:
         
     def is_possible(self):
         """Indicates if the predicate is possible."""
-        return ((not self.negation.realised) or self.actionable)
+        return (not self.negation.realised)# or self.actionable
+        
+    def seems_possible(self):
+        """Indicates if the predicate is possible."""
+        return (not self.negation.seems)# or self.actionable)
         
     def make_action(self):
         """Makes the action corresponding to the predicate if there is one.

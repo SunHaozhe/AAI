@@ -8,6 +8,7 @@ Created on Sat Jun 17 18:24:40 2017
 from preprocessing import Preprocessor
 from argumenting import Argumentator
 from SeparateWorld import World
+from mind import Mind
 import sys
 
 if __name__ == '__main__':
@@ -17,8 +18,8 @@ if __name__ == '__main__':
         print(message)
         sys.exit()
     filename = sys.argv[1]
-    predicates,logical_links,initial_situations = Preprocessor.setup_data(filename)
-    world = World(predicates,logical_links,initial_situations)
+    predicates,logical_links = Preprocessor.setup_data(filename)
+    world = World(predicates,logical_links)
     argumentator = Argumentator(world)
     argumentator.argue()
 
@@ -26,11 +27,13 @@ if __name__ == '__main__':
 from preprocessing import Preprocessor
 from argumenting import Argumentator
 from SeparateWorld import World
+from mind import Mind
 filename = "tennis.pl"
 #filename = "doors.pl"
-predicates,logical_links,initial_situations = Preprocessor.setup_data(filename)
-world = World(predicates,logical_links,initial_situations)
-argumentator = Argumentator(world)
+predicates,logical_links = Preprocessor.setup_data(filename)
+world = World(predicates,logical_links)
+mind = Mind(predicates,logical_links)
+argumentator = Argumentator(world,mind)
 argumentator.argue()
 """
 

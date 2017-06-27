@@ -126,22 +126,11 @@ class Preprocessor:
     
             actionable = (name in data_dict['actions']) or (negation_name in data_dict['actions'])
             
-
-    
-            if name in data_dict['defaults']:
-                default = 1
-            elif negation_name in data_dict['defaults']:
-                default = -1
-            else:
-                default = 0
-            
-
-            if (name not in data_dict['initial_situations']):
-                if negation_name not in data_dict['initial_situations'] and default==1:
-                    data_dict['initial_situations'].append(name)
-
     
             realised = name in data_dict['initial_situations']
+            
+            default = (name in data_dict['defaults'])
+            
                 
             predicate = Predicate(name, value, actionable, realised, default)
             
@@ -164,6 +153,6 @@ class Preprocessor:
             logical_links.append(logical_link)
             
             
-        return predicates, logical_links, data_dict["initial_situations"]
+        return predicates, logical_links
 
         
