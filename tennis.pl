@@ -115,6 +115,8 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	dictionary(joue_femmes_5_sets,les femmes jouent en 5 sets)
 	dictionary(-joue_hommes_5_sets,les hommes ne jouent pas en 5 sets)
 	dictionary(-joue_femmes_5_sets,les femmes ne jouent pas en 5 sets)
+	dictionary(-joue_hommes_3_sets,les hommes ne jouent pas en 3 sets)
+	dictionary(-joue_femmes_3_sets,les femmes ne jouent pas en 3 sets)
 	dictionary(-endurant_hommes,les hommes ne soient pas endurants)
 	dictionary(-endurant_femmes,les femmes ne soient pas endurantes)
 	dictionary(court_marathon_femmes,les femmes courent le marathon)
