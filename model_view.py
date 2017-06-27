@@ -18,10 +18,10 @@ class RsModel(QAbstractTableModel):
         self._headers=headers
 
     def rowCount(self, parent):
-        return len(data1)
+        return len(self.__data1)
 
     def columnCount(self, parent):
-        return len(data1[0])
+        return len(self.__data1[0])
 
     def data(self, index, role):
         if role == Qt.ToolTipRole:
