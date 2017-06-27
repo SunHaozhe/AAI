@@ -15,27 +15,27 @@
 	Original dialogue:
 	==================
 A1 - Ben moi, j'en bave actuellement parce qu'il faut que je refasse mes portes,
-la peinture. Alors j'ai d‚cap‚ … la chaleur. Ca part bien. Mais pas partout.
+la peinture. Alors j'ai dâ€šcapâ€š â€¦ la chaleur. Ca part bien. Mais pas partout.
 C'est un travail dingue, hein? 
-B1- heu, tu as essay‚ de.  Tu as d‚cap‚ tes portes? 
-A2- Ouais, ‡a part trŠs bien … la chaleur, mais dans les coins, tout , les
+B1- heu, tu as essayâ€š de.  Tu as dâ€šcapâ€š tes portes? 
+A2- Ouais, â€¡a part trÅ s bien â€¦ la chaleur, mais dans les coins, tout , les
 moulures, c'est infaisable. [plus fort] Les moulures.  
-B2- Quelle chaleur? La lampe … souder? 
-A3- Ouais, avec un truc sp‚cial.  
-B3- Faut une brosse, dure, une brosse m‚tallique.  
+B2- Quelle chaleur? La lampe â€¦ souder? 
+A3- Ouais, avec un truc spâ€šcial.  
+B3- Faut une brosse, dure, une brosse mâ€štallique.  
 A4- Oui, mais j'attaque le bois.  
 B4- T'attaques le bois.  
 A5- [pause 5 secondes] Enfin je sais pas. C'est un boulot dingue, hein?
 C'est plus de boulot que de racheter une porte, hein? 
-B5- Oh, c'est pour ‡a qu'il vaut mieux laiss... il vaut mieux simplement poncer,
+B5- Oh, c'est pour â€¡a qu'il vaut mieux laiss... il vaut mieux simplement poncer,
 repeindre par dessus 
-A6- Ben oui, mais si on est les quinziŠmes … se dire ‡a 
+A6- Ben oui, mais si on est les quinziÅ mes â€¦ se dire â€¡a 
 B6- Ah oui.  
-A7- Y a d‚j… trois couches de peinture, hein, dessus.  
-B7- Remarque, si elle tient bien, la peinture, l… o— elle est ‚caill‚e, on
-peut enduire. De l'enduit … l'eau, ou 
-A8- Oui, mais l'‚tat de surface est pas joli, quoi, ‡a fait laque, tu sais,
-‡a fait vieille porte.  
+A7- Y a dâ€šjâ€¦ trois couches de peinture, hein, dessus.  
+B7- Remarque, si elle tient bien, la peinture, lâ€¦ oâ€” elle est â€šcaillâ€še, on
+peut enduire. De l'enduit â€¦ l'eau, ou 
+A8- Oui, mais l'â€štat de surface est pas joli, quoi, â€¡a fait laque, tu sais,
+â€¡a fait vieille porte.  
 
 
 	English translation:
@@ -88,7 +88,7 @@ A6- not nice surface
 	
 	% initial facts
 	initial_situation(-les_portes_sont_belles).
-	initial_situation(-l_état_de_surface_est_bon).
+	initial_situation(-l_Ã©tat_de_surface_est_bon).
 	initial_situation(il_y_a_des_moulures).		%%%%% solution %%%%%
 	initial_situation(le_bois_est_tendre).		%%%%% solution %%%%%
 	initial_situation(il_y_a_plusieurs_couches).		%%%%% solution %%%%%
@@ -96,8 +96,8 @@ A6- not nice surface
 
 	% actions
 	action(repeindre).
-	action(on_décape).
-	action(on_utilise_une_brosse_métallique).
+	action(on_dÃ©cape).
+	action(on_utilise_une_brosse_mÃ©tallique).
 	action(on_ponce).
 	action(on_met_de_l_enduit).
 
@@ -105,24 +105,24 @@ A6- not nice surface
 	% defaults
 	default(-le_bois_est_tendre).
 	default(-il_y_a_plusieurs_couches).
-	default(-on_utilise_une_brosse_métallique).	
-	default(-ça_abime_le_bois).		%%%%% solution %%%%%
+	default(-on_utilise_une_brosse_mÃ©tallique).	
+	default(-Ã§a_abime_le_bois).		%%%%% solution %%%%%
 
 
 	% prerequisites
 
 
 	% causal clauses
-	l_état_de_surface_est_bon <=== on_décape + -ça_abime_le_bois.
-	l_état_de_surface_est_bon <=== on_ponce + -il_y_a_plusieurs_couches + -ça_abime_le_bois.		%%%%% solution %%%%%
-	l_état_de_surface_est_bon <=== on_met_de_l_enduit + -ça_abime_le_bois.		%%%%% solution %%%%%
-	les_portes_sont_belles <=== repeindre + l_état_de_surface_est_bon.
+	l_Ã©tat_de_surface_est_bon <=== on_dÃ©cape + -Ã§a_abime_le_bois.
+	l_Ã©tat_de_surface_est_bon <=== on_ponce + -il_y_a_plusieurs_couches + -Ã§a_abime_le_bois.		%%%%% solution %%%%%
+	l_Ã©tat_de_surface_est_bon <=== on_met_de_l_enduit + -Ã§a_abime_le_bois.		%%%%% solution %%%%%
+	les_portes_sont_belles <=== repeindre + l_Ã©tat_de_surface_est_bon.
 
 	
 	% physical consequences
-	c_est_un_travail_dingue <=== on_décape + il_y_a_des_moulures + -on_utilise_une_brosse_métallique.
-	ça_abime_le_bois <=== on_utilise_une_brosse_métallique + le_bois_est_tendre.
-	-l_état_de_surface_est_bon <=== ça_abime_le_bois.
+	c_est_un_travail_dingue <=== on_dÃ©cape + il_y_a_des_moulures + -on_utilise_une_brosse_mÃ©tallique.
+	Ã§a_abime_le_bois <=== on_utilise_une_brosse_mÃ©tallique + le_bois_est_tendre.
+	-l_Ã©tat_de_surface_est_bon <=== Ã§a_abime_le_bois.
 
 
 	% preferences (termes positifs seulement)
@@ -132,21 +132,21 @@ A6- not nice surface
 	% dictionary
 
 	dictionary(-les_portes_sont_belles,les portes soient moches)
-	dictionary(-l_état_de_surface_est_bon,l'etat de la surface soit bon)
+	dictionary(-l_Ã©tat_de_surface_est_bon,l'etat de la surface soit bon)
 	dictionary(il_y_a_des_moulures,il y ait des moulures)
 	dictionary(le_bois_est_tendre,le bois soit tendre)
 	dictionary(il_y_a_plusieurs_couches,il y ait plusieurs couches)
 	dictionary(repeindre,l'on repeigne)
-	dictionary(on_décape,l'on décape)
-	dictionary(on_utilise_une_brosse_métallique,l'on utilise une brosse metallique)
+	dictionary(on_dÃ©cape,l'on decape)
+	dictionary(on_utilise_une_brosse_mÃ©tallique,l'on utilise une brosse metallique)
 	dictionary(on_ponce,l'on ponce)
 	dictionary(on_met_de_l_enduit,l'on mette de l'enduit)
 	dictionary(-le_bois_est_tendre,le bois est dur)
 	dictionary(-il_y_a_plusieurs_couches,il y ait une seule couche)
-	dictionary(-on_utilise_une_brosse_métallique,l'on utilise pas de brosse metallique)
-	dictionary(-ça_abime_le_bois,cela respecte le bois)
-	dictionary(l_état_de_surface_est_bon,l'etat de la surface soit bon)
+	dictionary(-on_utilise_une_brosse_mÃ©tallique,l'on utilise pas de brosse metallique)
+	dictionary(-Ã§a_abime_le_bois,cela respecte le bois)
+	dictionary(l_Ã©tat_de_surface_est_bon,l'etat de la surface soit bon)
 	dictionary(on_met_de_l_enduit,l'on mette de l'enduit)
 	dictionary(c_est_un_travail_dingue,ce soit un travail de dingue)
-	dictionary(ça_abime_le_bois,cela abime le bois)
-	dictionary(on_utilise_une_brosse_métallique,l'on utilise une brosse metallique)
+	dictionary(Ã§a_abime_le_bois,cela abime le bois)
+	dictionary(on_utilise_une_brosse_mÃ©tallique,l'on utilise une brosse metallique)
