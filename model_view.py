@@ -40,6 +40,17 @@ class RsModel(QAbstractTableModel):
     def flags(self, index):
         return Qt.ItemIsEnabled | (Qt.ItemIsEditable) | Qt.ItemIsSelectable
 
+"""    
+def newElementListView(NewStringElement):
+    rowcount = llModel.rowCount()
+    modelindex = llModel.index(rowcount)
+    llModel.setData(modelindex, NewStringElement)
+    
+def newElementTableView(NewStringElement):
+    rowcount1 = rsModel.rowCount()
+    modelindex1 = rsModel.index(rowcount1)
+    rsModel.setData(modelindex1, NewStringElement)
+"""
 
 #logical links
 dataLogicalLinks = ["nice_surface <=== burn_off + -wood_wrecked", "nice_surface <=== sanding + -several_layers + -wood_wrecked",
