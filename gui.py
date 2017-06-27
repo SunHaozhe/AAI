@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         self.setMaximumSize(*sizeTuple)
         self.setMinimumSize(*sizeTuple)
         self.__center()
-        self.setWindowTitle('Arguing AI')
+        self.setWindowTitle('Argumentator_')
 
         #We can add an icon if we need
         #self.setWindowIcon(QIcon('XXX.png'))
@@ -109,6 +109,12 @@ class MainWindow(QMainWindow):
         self.reset_button = QPushButton("Reset",self)
         self.help_button  = QPushButton("Help", self)
 
+        self.combo_box.setStatusTip("Please choose a argumenting theme.")
+        self.begin_button.setStatusTip("Tap to begin the argumentator procedure.")
+        self.continue_button.setStatusTip("Tap to continue argumenting.")
+        self.reset_button.setStatusTip(("Tap to reset all program."))
+        self.help_button.setStatusTip("Tap to see the help.")
+
         self.reality_status_label   = QLabel("Reality status :",self)
         self.console_label          = QLabel("Console :", self)
         self.logical_links_label    = QLabel("Logical links :",self)
@@ -116,6 +122,10 @@ class MainWindow(QMainWindow):
         self.console           = QTextEdit()
         self.logical_links     = QListView(self)
         self.console.setReadOnly(True)
+
+        self.reality_status.setStatusTip('The reality status of the "world".')
+        self.console.setStatusTip("The state of the argumenting procedure.")
+        self.logical_links.setStatusTip('The logical links between different elements in the "world"')
 
         """
         self.reality_status.setColumnCount(3)
