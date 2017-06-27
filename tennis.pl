@@ -106,8 +106,8 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	preference(audience_femmes, 5).
 	preference(audience_hommes, 5).
 	preference(joue_hommes_5_sets, 5).
-
-	% dictionary
+    
+% dictionary
 
 	dictionary(joue_femmes_3_sets,les femmes jouent en 3 sets)
 	dictionary(joue_hommes_5_sets,les hommes jouent en 5 sets)

@@ -8,11 +8,11 @@ Created on Thu Jun 22 16:49:20 2017
 class Debug:
     
     DEBUG = False
-    
+    @classmethod
     def do_nothing(*arg):
         pass
-    
-    def show_truth(world):
+    @classmethod
+    def show_truth(cls, world):
         for pred_name in world.predicates:
             if pred_name[0]!="-":
                 pred = world.predicates[pred_name]
