@@ -13,6 +13,7 @@ import sys
 from gui import *
 import threading
 
+"""
 def t1_function():
     Argumentator.argue(predicates)
 
@@ -20,8 +21,10 @@ def t2_function():
     app = QApplication(sys.argv)
     mainWindow = MainWindow()
     sys.exit(app.exec_())
+"""
 
 if __name__ == '__main__':
+    """
     if len(sys.argv) != 2:
         message = ("This script needs one argument : the path to the file " 
                    "containing the predicate data.")
@@ -29,10 +32,12 @@ if __name__ == '__main__':
         sys.exit()
     filename = sys.argv[1]
     predicates,logical_links = Preprocessor.setup_data(filename)
-
+    """
+    """
     #terminal thread
     t1 = threading.Thread(target=t1_function, name='terminalThread')
     t1.start()
+    """
 
     #graphic interface
     app = QApplication(sys.argv)

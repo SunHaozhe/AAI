@@ -45,6 +45,32 @@ class Theme():
     def resetConsoleMessage(self):
         self.consoleMessage = ""
 
+class ThemeIterator():
+    def __init__(self, theme):
+        self.index = 0
+        self.theme = theme
+        self.consoleStringList = theme.consoleMessage
+
+    def __iter__(self):
+        return self
+
+    def __next__(self):
+        if self.index >= len(self.consoleStringList):
+            if self.theme.procedureIsFinished() == False:
+                self.__requestForNewStrings()
+                pass
+            else:
+                raise StopIteration("Iterator has been used up")
+        else:
+            self.index += 1
+            return self.consoleStringList[self.index - 1]
+
+    def __requestForNewStrings(self):
+        """ask for new strings when the procedure is waiting for user's input"""
+        pass
+
+
+
 
 
 

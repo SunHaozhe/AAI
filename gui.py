@@ -28,10 +28,12 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.editIsVisible = False
         self.inputString = ""
         self.themeNames = ("Doors", "Tennis", "Proportional")
         self.themeNameDict = {self.themeNames[0]: 0, self.themeNames[1]: 1, self.themeNames[2]: 2}
         self.theme = Theme(self.themeNames[0])
+        self.themeIterator = None
 
         self.__initUI()
 
@@ -103,7 +105,7 @@ class MainWindow(QMainWindow):
         self.combo_box = QComboBox(self)
         self.__initComboBox()
         self.begin_button = QPushButton("Begin",self)
-        self.pause_button = QPushButton("Pause",self)
+        self.continue_button = QPushButton("Continue",self)
         self.reset_button = QPushButton("Reset",self)
         self.help_button  = QPushButton("Help", self)
 
@@ -125,7 +127,7 @@ class MainWindow(QMainWindow):
         grid.addWidget(self.theme_label,            1, 0)
         grid.addWidget(self.combo_box,              1, 1)
         grid.addWidget(self.begin_button,           2, 0)
-        grid.addWidget(self.pause_button,           2, 1)
+        grid.addWidget(self.continue_button,           2, 1)
         grid.addWidget(self.reset_button,           2, 2)
         grid.addWidget(self.help_button,            2, 3)
 
@@ -165,7 +167,7 @@ class MainWindow(QMainWindow):
 
     def __initButtons(self):
         self.begin_button.clicked.connect(self.showBeginDialog)
-        self.pause_button.clicked.connect(self.pause_activity)
+        self.pause_button.clicked.connect(self.continue_activity)
         self.reset_button.clicked.connect(self.reset_activity)
         self.help_button.clicked.connect(self.showHelpDialog)
 
@@ -176,9 +178,14 @@ class MainWindow(QMainWindow):
             self.begin_activity()
 
     def begin_activity(self):
+        self.editIsVisible = True
+        self.console.setText(self.inputString)
+        self.console.setText("\n*************Argumentator begins to argument********************\n")
+        next(self.themeIterator)
         pass
 
-    def pause_activity(self):
+    def continue_activity(self):
+        next(self.themeIterator)
         pass
 
     def reset_activity(self):
@@ -197,7 +204,7 @@ class MainWindow(QMainWindow):
     def __updateTheme(self):
         """self.theme has been modified, we should update the main window"""
         """changes models to update list view and table view, initialize input string and then, configure the console"""
-
+        self.themeIterator = ThemeIterator(self.theme)
         pass
 
 if __name__ == '__main__':
