@@ -199,7 +199,8 @@ class MainWindow(QMainWindow):
         pass
 
     def reset_activity(self):
-        pass
+        self.console.setText("")
+        self.__updateModels()
 
     def showHelpDialog(self):
         dialog = QDialog()
@@ -212,7 +213,7 @@ class MainWindow(QMainWindow):
         dialog.show()
 
     def __updateTheme(self):
-        """self.theme has been modified, we should update the main window"""
+        """self.theme.name has been modified, we should update the main window"""
         """changes models to update list view and table view, initialize input string and then, configure the console"""
         self.themeIterator = ThemeIterator(self.theme)
         self.inputString = ""
@@ -220,6 +221,7 @@ class MainWindow(QMainWindow):
         self.__updateModels()
 
     def __updateModels(self):
+        """updates the models in function of self.theme.name, which means to change the data which is for the model"""
         pass
 
 if __name__ == '__main__':
