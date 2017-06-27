@@ -92,6 +92,7 @@ A6- not nice surface
 	initial_situation(mouldings).		%%%%% solution %%%%%
 	initial_situation(soft_wood).		%%%%% solution %%%%%
 	initial_situation(several_layers).		%%%%% solution %%%%%
+	initial_situation(-wood_wrecked)
 
 
 	% actions
@@ -117,12 +118,14 @@ A6- not nice surface
 	nice_surface <=== sanding + -several_layers + -wood_wrecked.		%%%%% solution %%%%%
 	nice_surface <=== filler_compound + -wood_wrecked.		%%%%% solution %%%%%
 	nice_doors <=== repaint + nice_surface.
-
+	
+	
+	-nice_surface <=== wood_wrecked
 	
 	% physical consequences
 	tough_work <=== burn_off + mouldings + -wire_brush.
 	wood_wrecked <=== wire_brush + soft_wood.
-	-nice_surface <=== wood_wrecked.
+	
 
 
 	% preferences (termes positifs seulement)
