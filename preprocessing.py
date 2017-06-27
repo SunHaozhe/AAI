@@ -14,7 +14,7 @@ class Preprocessor:
     
     @staticmethod
     def __text_init(filename):
-        """Reads the textual data end stores it in the returned dictionnary."""
+        """Reads the textual data end stores it in the returned dictionary."""
         
         return_dict = {}
     
@@ -36,6 +36,7 @@ class Preprocessor:
         
         causal_links = []
         incompatibility_links = []
+        dictionary = {}
 
         for conseq_text,causes_text in causal_links_text:
             
@@ -98,6 +99,20 @@ class Preprocessor:
                 
         return_dict['predicates']=predicates
         
+
+    
+        # Store the dictionary
+
+        pattern="dictionary\((.*)\)"
+        dictionary_list_texts = re.findall(pattern, text, flags=re.MULTILINE)
+        for dictionary_text in dictionary_list_texts:
+            
+            word = list(re.findall("([\w\s*?]+)", dictionary_text))
+            dictionary[word[0]] = word[1]
+
+            
+        return_dict['dictionary']=dictionary
+        
         return return_dict
     
     @staticmethod    
@@ -109,6 +124,7 @@ class Preprocessor:
         data_dict = Preprocessor.__text_init(filename)
         predicates = {}
         logical_links = []
+        dictionary = data_dict['dictionary']
         for name in data_dict['predicates']:
             
             if name[0]!='-':
@@ -152,7 +168,10 @@ class Preprocessor:
             logical_link = Incompatibility_link(incompatibilities)
             logical_links.append(logical_link)
             
+
             
-        return predicates, logical_links
+            
+            
+        return predicates, logical_links, dictionary
 
         

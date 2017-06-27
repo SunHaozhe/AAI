@@ -106,3 +106,29 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	preference(audience_femmes, 5).
 	preference(audience_hommes, 5).
 	preference(joue_hommes_5_sets, 5).
+    
+   % dictionary
+
+	dictionary(jouent_femmes_3_sets,les femmes jouent en 3 sets)
+	dictionary(joue_hommes_5_sets,les hommes jouent en 3 sets)
+	dictionary(court_marathon_femmes,les femmes courent le marathon)
+	dictionary(court_marathon_hommes,les femmes courent le marathon)
+	dictionary(capable_hommes_5_sets,les hommes soient capables de jouer en 5 sets) dictionary(passer_hommes_3sets,les hommes passent en 3 sets)
+	dictionary(passer_hommes_5sets,les hommes passent en 5 sets)
+	dictionary(passer_femmes_3sets,les femmes passent en 3 sets)
+	dictionary(passer_femmes_5sets,les femmes passent en 5 sets)
+	dictionary(-capable_femmes_5_sets,les femmes soient  incapables de jouer en 5 sets)
+	dictionary(-audience_femmes,les matchs feminins aient une bonne audience)
+	dictionary(endurant_hommes,les hommes soient endurants)
+	dictionary(egalite_femmes_hommes,il y ait egalite homme-femme)
+	dictionary(-capable_femmes_5_sets,les femmes soient incapables de jouer en 5 sets)
+	dictionary(-capable_femmes_3_sets,les femmes soient pas incapables de jouer en 3 sets)
+	dictionary(-capable_hommes_5_sets,les hommes soient incapables de jouer en 3 sets)
+	dictionary(endurant_femmes,les femmes soient endurants)
+	dictionary(-audience_femmes,les matchs feminins aient une mauvaise audience)
+	dictionary(-audience_hommes,les matchs masculins aient une mauvaise audience)
+	dictionary(exemple_femmes_5_sets_1980,les femmes ont joue en 5 sets en 1980)
+	dictionary(-passer_hommes_3_sets,les hommes restent en 5 sets)
+	dictionary(-passer_hommes_5_sets,les hommes restent en 3 sets)
+	dictionary(-passer_femmes_3_sets,les femmes restent en 5 sets)
+	dictionary(-passer_femmes_5_sets,les femmes restent en 3 sets)

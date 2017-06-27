@@ -28,9 +28,9 @@ from preprocessing import Preprocessor
 from argumenting import Argumentator
 from SeparateWorld import World
 from mind import Mind
-filename = "proportionnelle.pl"
+filename = "tennis.pl"
 
-predicates,logical_links = Preprocessor.setup_data(filename)
+predicates,logical_links, dictionary = Preprocessor.setup_data(filename)
 world = World(predicates,logical_links)
 mind = Mind(predicates,logical_links)
 argumentator = Argumentator(world,mind)

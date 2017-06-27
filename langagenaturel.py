@@ -13,17 +13,28 @@ class LangageNaturel:
     def __init__(self, etape, predicates, dictionnary):
         self.etape = etape
         self.predicates = predicates
-        self.dictionnary = dictionnary
+        self.dictionary = dictionary
         
     def output(self):
         if self.etape == "Initialisation":
-            return self.dictionnary['self.predicates.name']
+            return "Il faudrait que " + self.dictionary['self.predicates.name'] + "..."
         
         if self.etape == "Abduction":
-            return self.dictionnary['self.predicates[0].name'] + self.dictionnary['self.predicates[0].name']
+            return "Pour que " + self.dictionary['self.predicates[0].name'] + ", il est nécessaire que " + self.dictionnary['self.predicates[1].name'] + "."
         
         if self.etape == "Negation":
-            self.dictionnary['self.predicates.name']
+            return self.dictionary['self.predicates.name']
+        
+        if self.etape == "Discovery":
+            return "Je viens de réaliser que " + self.dictionary['self.predicates.name'] + " !"
+        
+        if self.etape == "Solution":
+            return "J'ai trouvé la solution !"
+        
+        if self.etape == "Surrender":
+            return "Je ne trouve pas de solution."
+        
+            
             
         
         
