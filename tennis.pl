@@ -109,8 +109,14 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 
 	% dictionary
 
-	dictionary(jouent_femmes_3_sets,les femmes jouent en 3 sets)
-	dictionary(joue_hommes_5_sets,les hommes jouent en 3 sets)
+	dictionary(joue_femmes_3_sets,les femmes jouent en 3 sets)
+	dictionary(joue_hommes_5_sets,les hommes jouent en 5 sets)
+	dictionary(joue_hommes_3_sets,les hommes jouent en 3 sets)
+	dictionary(joue_femmes_5_sets,les femmes jouent en 5 sets)
+	dictionary(-joue_hommes_5_sets,les hommes ne jouent pas en 5 sets)
+	dictionary(-joue_femmes_5_sets,les femmes ne jouent pas en 5 sets)
+	dictionary(-endurant_hommes,les hommes ne soient pas endurants)
+	dictionary(-endurant_femmes,les femmes ne soient pas endurantes)
 	dictionary(court_marathon_femmes,les femmes courent le marathon)
 	dictionary(court_marathon_hommes,les femmes courent le marathon)
 	dictionary(capable_hommes_5_sets,les hommes soient capables de jouer en 5 sets) dictionary(passer_hommes_3sets,les hommes passent en 3 sets)
@@ -123,8 +129,8 @@ http://www.lemonde.fr/tennis/video/2017/05/28/roland-garros-pourquoi-les-femmes-
 	dictionary(egalite_femmes_hommes,il y ait egalite homme-femme)
 	dictionary(-capable_femmes_5_sets,les femmes soient incapables de jouer en 5 sets)
 	dictionary(-capable_femmes_3_sets,les femmes soient pas incapables de jouer en 3 sets)
-	dictionary(-capable_hommes_5_sets,les hommes soient incapables de jouer en 3 sets)
-	dictionary(endurant_femmes,les femmes soient endurants)
+	dictionary(-capable_hommes_5_sets,les hommes soient incapables de jouer en 5 sets)
+	dictionary(endurant_femmes,les femmes soient endurantes)
 	dictionary(-audience_femmes,les matchs feminins aient une mauvaise audience)
 	dictionary(-audience_hommes,les matchs masculins aient une mauvaise audience)
 	dictionary(exemple_femmes_5_sets_1980,les femmes ont joue en 5 sets en 1980)
