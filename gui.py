@@ -205,6 +205,11 @@ class MainWindow(QMainWindow):
         """self.theme has been modified, we should update the main window"""
         """changes models to update list view and table view, initialize input string and then, configure the console"""
         self.themeIterator = ThemeIterator(self.theme)
+        self.inputString = ""
+        self.console.setText(self.inputString)
+        self.__updateModels()
+
+    def __updateModels(self):
         pass
 
 if __name__ == '__main__':
