@@ -11,8 +11,6 @@
 |* Domain knowledge for CAN                       *|
 |* Dialogue: 'proportionnelle'                             *|
 |*-------------------------------------------------/
-
-
 	/*------------------------------------------------*/
 	/* Domain knowledge starts here                   */
 	/*------------------------------------------------*/
@@ -47,8 +45,8 @@
 
 
 	% causal clauses
-	proportionnelle <=== passer(-proportionnelle,proportionnelle).
-	proportionnelle <=== passer(proportionnelle,-proportionnelle).
+	proportionnelle <=== passer_proportionnelle.
+	-proportionnelle <=== passer_non_proportionnelle.
 	justice <=== representativitee.
 	representativitee <=== proportionnelle.
 	confiance_des_electeurs_vis_a_vis_des_institutions <=== proportionnelle.
@@ -58,7 +56,8 @@
 	manque_de_confiance_des_electeurs_vis_a_vis_des_institutions <=== perte_de_l_esprit_local.
 
 	% actions
-	action(passer(_,_)).
+	action(passer_proportionnelle).
+   action(passer_non_proportionnelle).
 	
 	% beliefs
 	justice <=== proportionnelle.
@@ -88,9 +87,6 @@
 	dictionary(-difficulte_a_gouverner,il est facile de gouverner)
 	dictionary(manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,les electeurs manquent de confiance dans leurs institutions)
 	dictionary(-manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,les electeurs ne manquent pas de confiance dans leurs institutions)
-	dictionary(passer(proportionnelle,-proportionnelle),on retire la proportionnelle)
-	dictionary(passer(-proportionnelle,proportionnelle),on instaure la proportionnelle)
-
-
-
-		
+	dictionary(passer_proportionnelle,on instaure la proportionnelle)
+	dictionary(passer_non_proportionnelle,on retire la proportionnelle)
+   

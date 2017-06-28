@@ -7,14 +7,14 @@ Created on Fri Jun 16 10:23:18 2017
 
 import re
 from predicate import Predicate
-from logical import Causal_link
+from logical import Causal_link,Incompatibility_link
 
 class Preprocessor:
     """Preprocessing for converting the textual data to Python objects."""
     
     @staticmethod
     def __text_init(filename):
-        """Reads the textual data end stores it in the returned dictionnary."""
+        """Reads the textual data end stores it in the returned dictionary."""
         
         return_dict = {}
     
@@ -30,25 +30,41 @@ class Preprocessor:
         return_dict['language']=language
         text = re.sub("(?:^\s*%.*?$)|(?:%+.*?%+)", "", text, flags=re.MULTILINE)
         
-        # Store the logical clauses.
+        # Store the causal clauses.
         pattern="^\s*(-?\w*)\s*<===\s*(.*)\s*$"
         causal_links_text = re.findall(pattern, text, flags=re.MULTILINE)
         
         causal_links = []
+        incompatibility_links = []
+        dictionary = {}
 
-        for conseqs_text,causes_text in causal_links_text:
+        for conseq_text,causes_text in causal_links_text:
             
-            conseqs = list(re.findall("([\w-]+)", conseqs_text))
+            conseq = list(re.findall("([\w-]+)", conseq_text))[0]
             causes = list(re.findall("([\w-]+)", causes_text))
-            causal_links.append((causes,conseqs))
+            causal_links.append((causes,conseq))
             
             for cause in causes:
                 predicates.add(cause)
-            for conseq in conseqs:
-                predicates.add(conseq)
-            
+            predicates.add(conseq)
+    
         return_dict['causal_links']=causal_links
         
+        
+        #Store the incompatibilities
+        pattern="^\s*incompatible\(\[(.*)\]"
+        incompatibility_list_texts = re.findall(pattern, text, flags=re.MULTILINE)
+        for incompatibility_text in incompatibility_list_texts:
+            
+            incompatibility = list(re.findall("([\w-]+)", incompatibility_text))
+            incompatibility_links.append(incompatibility)
+            for pred in incompatibility:
+                predicates.add(pred)
+            
+        return_dict['incompatibility_links']=incompatibility_links
+    
+    
+    
         # Store the preferences.
         pattern="preference\(\s*?(-?\w*)\s*?,\s*?(-?\d*)\s*?\)"
         preferences_text = re.findall(pattern, text, flags=re.MULTILINE)
@@ -71,7 +87,7 @@ class Preprocessor:
         
         # Store the initial situations.
         pattern="initial_situation\(\s*?(-?\w*)\s*?\)"
-        return_dict['initial_situations'] = re.findall(pattern, text, flags=re.MULTILINE)
+        return_dict['initial_situations'] = list(re.findall(pattern, text, flags=re.MULTILINE))
         
         # Store the predicate negations.
         for predicate in set(predicates):
@@ -82,6 +98,20 @@ class Preprocessor:
          
                 
         return_dict['predicates']=predicates
+        
+
+    
+        # Store the dictionary
+
+        pattern="dictionary\((.*)\)"
+        dictionary_list_texts = re.findall(pattern, text, flags=re.MULTILINE)
+        for dictionary_text in dictionary_list_texts:
+            
+            word = list(re.findall("([-?\w\s*?]+)", dictionary_text))
+            dictionary[word[0]] = word[1]
+
+            
+        return_dict['dictionary']=dictionary
         
         return return_dict
     
@@ -94,6 +124,7 @@ class Preprocessor:
         data_dict = Preprocessor.__text_init(filename)
         predicates = {}
         logical_links = []
+        dictionary = data_dict['dictionary']
         for name in data_dict['predicates']:
             
             if name[0]!='-':
@@ -111,16 +142,12 @@ class Preprocessor:
     
             actionable = (name in data_dict['actions']) or (negation_name in data_dict['actions'])
             
-            realised =  name in data_dict['initial_situations']
     
-            if name in data_dict['defaults']:
-                default = 1
-            elif negation_name in data_dict['defaults']:
-                default = -1
-            else:
-                default = 0
-    
-    
+            realised = name in data_dict['initial_situations']
+            
+            default = (name in data_dict['defaults'])
+            
+                
             predicate = Predicate(name, value, actionable, realised, default)
             
             if negation_name in predicates :
@@ -132,18 +159,19 @@ class Preprocessor:
         
         for link in data_dict['causal_links']:
             causes = [predicates[name] for name in link[0]]
-            conseqs = [predicates[name] for name in link[1]]
-            logical_link = Causal_link(causes,conseqs)
+            conseq = predicates[link[1]]
+            logical_link = Causal_link(causes,conseq)
             logical_links.append(logical_link)
-            for name in link[0]+link[1]:
-                if logical_link not in predicates[name].logical_links:
-                    predicates[name].logical_links.append(logical_link)
-                  
-        
-        for name in predicates:
-            if predicates[name].default==1 and not predicates[name].negation.realised:
-                predicates[name].realised = True          
             
-        return predicates,logical_links
+        for incompatibilities in data_dict['incompatibility_links']:
+            incompatibilities = [predicates[name] for name in incompatibilities]
+            logical_link = Incompatibility_link(incompatibilities)
+            logical_links.append(logical_link)
+            
+
+            
+            
+            
+        return predicates, logical_links, dictionary
 
         
