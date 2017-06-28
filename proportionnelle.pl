@@ -55,6 +55,9 @@
 	necessite_d_une_majorite <=== difficulte_a_gouverner.
 	manque_de_confiance_des_electeurs_vis_a_vis_des_institutions <=== perte_de_l_esprit_local.
 
+	% actions
+	passer(proportionnelle,-proportionnelle).
+	
 	% beliefs
 	justice <=== proportionnelle.
 
