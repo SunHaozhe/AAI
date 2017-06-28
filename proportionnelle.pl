@@ -47,6 +47,8 @@
 
 
 	% causal clauses
+	proportionnelle <=== passer(-proportionnelle,proportionnelle).
+	proportionnelle <=== passer(proportionnelle,-proportionnelle).
 	justice <=== representativitee.
 	representativitee <=== proportionnelle.
 	confiance_des_electeurs_vis_a_vis_des_institutions <=== proportionnelle.
@@ -56,7 +58,7 @@
 	manque_de_confiance_des_electeurs_vis_a_vis_des_institutions <=== perte_de_l_esprit_local.
 
 	% actions
-	passer(proportionnelle,-proportionnelle).
+	action(passer(_,_)).
 	
 	% beliefs
 	justice <=== proportionnelle.
