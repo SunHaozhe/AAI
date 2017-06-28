@@ -42,6 +42,9 @@ class MainWindow(QMainWindow):
     def __initUI(self):
         """To initialize the main window"""
 
+        self.__updatellModel()  # an exemple
+        self.__updatersModel()  # an exemple
+
         #To set up a status bar
         self.statusBar()
 
@@ -154,9 +157,6 @@ class MainWindow(QMainWindow):
         self.__makeModelViewLink()
 
         self.__initButtons()
-
-        self.__updatellModel() #an exemple
-        self.__updatersModel() #an exemple
 
         return grid
 
