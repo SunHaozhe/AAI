@@ -14,8 +14,8 @@ from PyQt5.QtWidgets import (QPushButton, QApplication, QMessageBox, QDesktopWid
                              QGroupBox, QListWidget, QTableWidget, QListView, QTableView,
                              QAbstractItemView, QDialog, QVBoxLayout)
 from PyQt5.QtCore import QCoreApplication, QSize, QMetaObject
+from PyQt5.QtCore import QStringListModel, QAbstractTableModel, Qt, QAbstractTableModel
 from PyQt5.QtGui import QIcon, QFont
-from model_view import *
 from dialogs import *
 from random import randint
 from preprocessing import Preprocessor
@@ -34,6 +34,8 @@ class MainWindow(QMainWindow):
         self.themeNameDict = {self.themeNames[0]: 0, self.themeNames[1]: 1, self.themeNames[2]: 2}
         self.theme = Theme(self.themeNames[0])
         self.themeIterator = None
+        self.llModel = None
+        self.rsModel = None
 
         self.__initUI()
 
@@ -153,6 +155,9 @@ class MainWindow(QMainWindow):
 
         self.__initButtons()
 
+        self.__updatellModel() #an exemple
+        self.__updatersModel() #an exemple
+
         return grid
 
     def __initComboBox(self):
@@ -167,10 +172,10 @@ class MainWindow(QMainWindow):
         self.__updateTheme()
 
     def __makeModelViewLink(self):
-        self.logical_links.setModel(llModel)
+        self.logical_links.setModel(self.llModel)
         self.logical_links.setEditTriggers(QAbstractItemView.NoEditTriggers)
 
-        self.reality_status.setModel(rsModel)
+        self.reality_status.setModel(self.rsModel)
         self.reality_status.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.reality_status.setColumnWidth(0, 300)
         self.reality_status.setColumnWidth(1, 67.9)
@@ -192,10 +197,14 @@ class MainWindow(QMainWindow):
         self.console.setText(self.inputString)
         self.console.append("\n*****\nArgumentator begins to argument\n*****\n")
         next(self.themeIterator)
+        oneStep = oneStepLogicalFunction() #oneStepLogicalFunction() doit être fourni par la partie logique qui fonctionne comme un générateur Python (yield)
+        self.console.append("\n", oneStep,"\n")
         pass
 
     def continue_activity(self):
-        next(self.themeIterator)
+        #next(self.themeIterator)
+        oneStep = oneStepLogicalFunction()
+        self.console.append("\n", oneStep, "\n")
         pass
 
     def reset_activity(self):
@@ -222,7 +231,57 @@ class MainWindow(QMainWindow):
 
     def __updateModels(self):
         """updates the models in function of self.theme.name, which means to change the data which is for the model"""
+        self.__updatellModel()  # an exemple
+        self.__updatersModel()  # an exemple
         pass
+
+    # logical links
+    def __updatellModel(self):
+        dataLogicalLinks = ["nice_surface <=== burn_off + -wood_wrecked",
+                            "nice_surface <=== sanding + -several_layers + -wood_wrecked",
+                            "nice_surface <=== filler_compound + -wood_wrecked",
+                            "nice_doors <=== repaint + nice_surface",
+                            "tough_work <=== burn_off + mouldings + -wire_brush",
+                            "wood_wrecked <=== wire_brush + soft_wood",
+                            "-nice_surface <=== wood_wrecked"]  # An example
+        self.llModel = QStringListModel(dataLogicalLinks)
+
+    # Reality status
+    def __updatersModel(self):
+        dataRealityStatus = [["The door is repainted", "True"], ["The door is wrecked", "False"],
+                             ["The door is beautiful", "True"]]  # An example
+        self.rsModel = RsModel(dataRealityStatus)
+
+class RsModel(QAbstractTableModel):
+
+    def __init__(self,data1 = [[]],headers =[],parent=None):
+        QAbstractTableModel.__init__(self, parent)
+        self.__data1=data1
+        self._headers=headers
+
+    def rowCount(self, parent):
+        return len(self.__data1)
+
+    def columnCount(self, parent):
+        return len(self.__data1[0])
+
+    def data(self, index, role):
+        if role == Qt.ToolTipRole:
+            row = index.row
+            return "Crédit"
+        if role == Qt.EditRole:
+            row = index.row()
+            column = index.column()
+            return self.__data1[row][column]
+        if role == Qt.DisplayRole:
+            row = index.row()
+            column = index.column()
+            value = self.__data1[row][column]
+            return value
+
+    def flags(self, index):
+        return Qt.ItemIsEnabled | (Qt.ItemIsEditable) | Qt.ItemIsSelectable
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
