@@ -20,6 +20,10 @@ from dialogs import *
 from random import randint
 from preprocessing import Preprocessor
 from themes import *
+from preprocessing import Preprocessor
+from argumenting import Argumentator
+from SeparateWorld import World
+from mind import Mind
 
 
 class MainWindow(QMainWindow):
@@ -197,14 +201,22 @@ class MainWindow(QMainWindow):
         self.console.setText(self.inputString)
         self.console.append("\n*****\nArgumentator begins to argument\n*****\n")
         next(self.themeIterator)
-        oneStep = oneStepLogicalFunction() #oneStepLogicalFunction() doit être fourni par la partie logique qui fonctionne comme un générateur Python (yield)
-        self.console.append("\n", oneStep,"\n")
+        #oneStep = oneStepLogicalFunction() #oneStepLogicalFunction() doit être fourni par la partie logique qui fonctionne comme un générateur Python (yield)
+        # self.console.append("\n", oneStep,"\n")
+
+        filename = "doors.pl"
+        predicates, logical_links = Preprocessor.setup_data(filename)
+        world = World(predicates, logical_links)
+        mind = Mind(predicates, logical_links)
+        argumentator = Argumentator(world, mind)
+        argumentator.argue()
+
         pass
 
     def continue_activity(self):
         #next(self.themeIterator)
-        oneStep = oneStepLogicalFunction()
-        self.console.append("\n", oneStep, "\n")
+        #oneStep = oneStepLogicalFunction()
+        #self.console.append("\n", oneStep, "\n")
         pass
 
     def reset_activity(self):

@@ -12,15 +12,19 @@ from mind import Mind
 import sys
 
 if __name__ == '__main__':
+    """"
     if len(sys.argv) != 2:
         message = ("This script needs one argument : the path to the file " 
                    "containing the predicate data.")
         print(message)
         sys.exit()
-    filename = sys.argv[1]
-    predicates,logical_links = Preprocessor.setup_data(filename)
-    world = World(predicates,logical_links)
-    argumentator = Argumentator(world)
+    """
+    #filename = sys.argv[1]
+    filename = "doors.pl"
+    predicates, logical_links = Preprocessor.setup_data(filename)
+    world = World(predicates, logical_links)
+    mind = Mind(predicates, logical_links)
+    argumentator = Argumentator(world, mind)
     argumentator.argue()
 
 """
