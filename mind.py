@@ -58,7 +58,7 @@ class Mind:
             if self.predicates[p].realised and not self.predicates[p].negation.seems:
                 self.predicates[p].seems = True                       
             if self.predicates[p].seems and p not in self.previous_situation :
-                print("(Mind) Inferring %s." %(p))
+                yield "(Mind) Inferring %s." %(p)
                       
              
     def propagate_forward(self,T,marked):

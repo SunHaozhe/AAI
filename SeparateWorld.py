@@ -51,7 +51,7 @@ class World:
                             
         for p in self.predicates:                        
             if self.predicates[p].realised and p not in self.previous_situation:
-                print("(World) Inferring %s." %(p))
+                yield "(World) Inferring %s." %(p)
                       
              
     def propagate_forward(self,T,marked):

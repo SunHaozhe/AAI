@@ -40,12 +40,16 @@ class MainWindow(QMainWindow):
         self.themeIterator = None
         self.llModel = None
         self.rsModel = None
+        self.argumentator = None
 
         self.__initUI()
 
     def __initUI(self):
         """To initialize the main window"""
 
+        self.__updatellModel()  # an exemple
+        self.__updatersModel()  # an exemple
+        
         #To set up a status bar
         self.statusBar()
 
@@ -159,9 +163,6 @@ class MainWindow(QMainWindow):
 
         self.__initButtons()
 
-        self.__updatellModel() #an exemple
-        self.__updatersModel() #an exemple
-
         return grid
 
     def __initComboBox(self):
@@ -208,8 +209,9 @@ class MainWindow(QMainWindow):
         predicates, logical_links = Preprocessor.setup_data(filename)
         world = World(predicates, logical_links)
         mind = Mind(predicates, logical_links)
-        argumentator = Argumentator(world, mind)
-        argumentator.argue()
+        self.argumentator = Argumentator(world, mind)
+        text = self.argumentator.argue()
+        self.console.append(next(text))
 
         pass
 
@@ -217,6 +219,8 @@ class MainWindow(QMainWindow):
         #next(self.themeIterator)
         #oneStep = oneStepLogicalFunction()
         #self.console.append("\n", oneStep, "\n")
+        text = self.argumentator.argue()
+        self.console.append(next(text))
         pass
 
     def reset_activity(self):

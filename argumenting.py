@@ -84,19 +84,18 @@ class Argumentator:
             R = T.negation
         else:
             R = T
-        print("Do you want to reconsider the value of %s?" % R.name)
-        print("(current value is %d)" % R.value)
-        print("[y/n]")
+        yield "Do you want to reconsider the value of %s?\n(current value is %d)\n[y/n]" % (R.name,R.value)
+
         valid = {"yes": True, "y": True, "ye": True,
                  "no": False, "n": False}
                  
         choice = input().lower()
         while choice not in valid:
-            print("Please respond with 'yes' or 'no' (or 'y' or 'n').")
+            yield ("Please respond with 'yes' or 'no' (or 'y' or 'n').")
             choice = input().lower()
         if valid[choice]:
-            print("\nWhat value would you like to give to %s ?" % R.name)
-            print("(current value is %d)" % R.value)
+            yield "\nWhat value would you like to give to %s ?\n(current value is %d)" % (R.name, R.value)
+
             choice = input()
             while not ((len(choice)>1 and choice[0] in ('-', '+') and choice[1:].isdigit()) or choice.isdigit()):
                 print("Please enter an integer.")
@@ -149,7 +148,7 @@ class Argumentator:
 
         #Negation : Restart the procedure with the conflict (not T,-N)
         if not negated:
-            print("Negating %s, considering %s"%(T.name,T.negation.name))
+            yield "Negating %s, considering %s"%(T.name,T.negation.name)
             new_conflict = self.__procedure(T.negation,-N, True)
             if new_conflict != None:
                 return new_conflict
@@ -186,12 +185,12 @@ class Argumentator:
         predicates.
         """
         
-        print("\n*********\n**START**\n*********\n")
+        yield "\n*********\n**START**\n*********\n"
         conflict = self.__find_conflict()
         while conflict != None:
             Debug.show_truth(self.world)
             (T,N)=conflict
-            print("Considering conflict of intensity %d with %s"%(N,T.name))
+            yield "Considering conflict of intensity %d with %s"%(N,T.name)
             new_conflict = self.__procedure(T,N,False)
             if new_conflict=="new_realisation":
                 new_conflict = conflict
@@ -199,10 +198,10 @@ class Argumentator:
                 conflict = new_conflict
             else:
                 conflict = self.__find_conflict()
-            print("**Restart**")
+            yield "**Restart**"
             
     
-        print("No conflict found\n\n*******\n**END**\n*******\n")
+        yield "No conflict found\n\n*******\n**END**\n*******\n"
 
         
 
