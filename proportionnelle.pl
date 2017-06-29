@@ -51,10 +51,10 @@
 	justice <=== representativitee.
 	representativitee <=== proportionnelle.
 	confiance_des_electeurs_vis_a_vis_des_institutions <=== proportionnelle.
-	comptes_rendus_aux_responsables_politiques <=== proportionnelle.
-	perte_de_l_esprit_local <=== comptes_rendus_aux_responsables_politiques.
+	perte_de_l_esprit_local <=== proportionnelle.
+	comptes_rendus_aux_responsables_politiques <=== perte_de_l_esprit_local.
 	necessite_d_une_majorite <=== difficulte_a_gouverner.
-	manque_de_confiance_des_electeurs_vis_a_vis_des_institutions <=== perte_de_l_esprit_local.
+	manque_de_confiance_des_electeurs_vis_a_vis_des_institutions <=== comptes_rendus_aux_responsables_politiques.
 
 	% actions
 	action(passer_proportionnelle).

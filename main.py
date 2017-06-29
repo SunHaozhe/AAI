@@ -31,9 +31,9 @@ from mind import Mind
 filename = "proportionnelle.pl"
 
 predicates,logical_links, dictionary = Preprocessor.setup_data(filename)
-world = World(predicates,logical_links, dictionary, 3)
-mind = Mind(predicates,logical_links, dictionary, 3)
-argumentator = Argumentator(world,mind,dictionary, 3)
+world = World(predicates,logical_links, dictionary, 2)
+mind = Mind(predicates,logical_links, dictionary, 2)
+argumentator = Argumentator(world,mind,dictionary, 2)
 argumentator.argue()
 """
 

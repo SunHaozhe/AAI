@@ -169,7 +169,7 @@ class Argumentator:
         #Give up : Make v(T) = -N, and reconsider if T is reconsiderable.
         else:
             if self.level >2:
-                print("Je suis prêt à abandonner")
+                print("Je suis prêt à abandonner \n")
             if (T.negation.seems != T.negation.realised) and (T.seems != T.realised):
                 
                 T.seems = T.realised
