@@ -91,8 +91,8 @@ class Argumentator:
         print("Do you want to reconsider the value of %s?" % R.name)
         print("(current value is %d)" % R.value)
         print("[y/n]")
-        valid = {"yes": True, "y": True, "ye": True,
-                 "no": False, "n": False}
+        valid = {'yes': True, 'y': True, 'ye': True,
+                 'no': False, 'n': False}
                  
         choice = input().lower()
         while choice not in valid:
@@ -141,7 +141,7 @@ class Argumentator:
         C = Argumentator.__find_mutable_cause(T,N)
 
         if C!=None:
-            if self.level>2 :
+            if self.level>1 :
                 language = LangageNaturel("Abduction", [T, C], self.dictionary)
                 print(language.output())
                 #print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
@@ -158,7 +158,7 @@ class Argumentator:
 
         #Negation : Restart the procedure with the conflict (not T,-N)
         if not negated:
-            if self.level == 4 :
+            if self.level > 1 :
                 language = LangageNaturel("Negation", T, self.dictionary)
                 print(language.output())
                 #print("Negating %s, considering %s"%(T.name,T.negation.name))
@@ -175,13 +175,13 @@ class Argumentator:
                 T.seems = T.realised
                 T.negation.seems = T.negation.realised
                 if T.realised:
-                    if self.level >2:
+                    if self.level >1:
                         language = LangageNaturel("Discovery", T, self.dictionary)
                         print(language.output())
                         #print("Just realised that %s !"%T.name)
                     self.mind.update_based_on(T)
                 else:
-                    if self.level >2:
+                    if self.level >1:
                         language = LangageNaturel("Discovery", T.negation, self.dictionary)
                         print(language.output())
                         #print("Just realised that %s !"%T.negation.name)

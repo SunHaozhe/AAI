@@ -42,6 +42,7 @@
 
 	% incompatibilities
 	incompatible(proportionnelle,-proportionnelle).
+   incompatible(confiance_des_electeurs_vis_a_vis_des_institutions,manque_de_confiance_des_electeurs_vis_a_vis_des_institutions).
 
 
 	% causal clauses
@@ -65,7 +66,7 @@
 	% preferences (termes positifs seulement)
 	preference(confiance_des_electeurs_vis_a_vis_des_institutions,20).
 	preference(manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,-10).
-	preference(justice,20).
+	preference(justice,5).
 
 	% dictionnaire
 
@@ -77,16 +78,16 @@
 	dictionary(-justice,le systeme n est pas juste)
 	dictionary(representativitee,le systeme est representatif)
 	dictionary(-representativitee,le systeme n est pas representatif)
-	dictionary(comptes_rendus_aux_responsables_politiques,les deputes rendent des comptes a leurs responsables politiques)
-	dictionary(-comptes_rendus_aux_responsables_politiques,les deputes ne rendent pas de comptes a leurs responsables politiques)
+	dictionary(comptes_rendus_aux_responsables_politiques,les deputes rendent des comptes uniquement a leurs responsables politiques)
+	dictionary(-comptes_rendus_aux_responsables_politiques,les deputes ne rendent pas de comptes uniquement a leurs responsables politiques)
 	dictionary(perte_de_l_esprit_local,on perd l esprit local)
 	dictionary(-perte_de_l_esprit_local,on garde l esprit local)
 	dictionary(necessite_d_une_majorite,une majoritee est necessaire)
 	dictionary(-necessite_d_une_majorite,une majoritee n est pas necessaire)
 	dictionary(difficulte_a_gouverner,il est difficile de gouverner)
 	dictionary(-difficulte_a_gouverner,il est facile de gouverner)
-	dictionary(manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,les electeurs manquent de confiance dans leurs institutions)
-	dictionary(-manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,les electeurs ne manquent pas de confiance dans leurs institutions)
+	dictionary(manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,les electeurs manquent de confiance dans la legitimite de leurs elus)
+	dictionary(-manque_de_confiance_des_electeurs_vis_a_vis_des_institutions,les electeurs ne manquent pas de confiance dans la legitimite de leurs elus)
 	dictionary(passer_proportionnelle,on instaure la proportionnelle)
 	dictionary(passer_non_proportionnelle,on retire la proportionnelle)
    

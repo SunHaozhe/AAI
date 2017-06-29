@@ -61,7 +61,7 @@ class Mind:
             if self.predicates[p].realised and not self.predicates[p].negation.seems:
                 self.predicates[p].seems = True                       
             if self.predicates[p].seems and p not in self.previous_situation :
-                if self.level >1 :
+                if self.level >2 :
                     language = LangageNaturel("Mind", self.predicates[p], self.dictionary)
                     print(language.output())
                     #print("(Mind) Inferring %s." %(p))
