@@ -5,6 +5,7 @@ Created on Sun Jun 18 15:03:21 2017
 @author: Tasslehoff
 """
 
+
 class Logic:
     
     @staticmethod

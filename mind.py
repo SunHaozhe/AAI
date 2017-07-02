@@ -6,10 +6,13 @@ Created on Fri Jun 23 15:44:07 2017
 """
 
 from logical import Logic
+from langagenaturel import LangageNaturel
 
 class Mind:
     
-    def __init__(self,predicates,logical_links):
+    def __init__(self,predicates,logical_links, dictionary, level = 1):
+        self.level = level
+        self.dictionary = dictionary
         self.predicates = predicates
         self.logical_links = logical_links
         self.init_situation = []
@@ -58,7 +61,10 @@ class Mind:
             if self.predicates[p].realised and not self.predicates[p].negation.seems:
                 self.predicates[p].seems = True                       
             if self.predicates[p].seems and p not in self.previous_situation :
-                print("(Mind) Inferring %s." %(p))
+                if self.level >2 :
+                    language = LangageNaturel("Mind", self.predicates[p], self.dictionary)
+                    print(language.output())
+                    #print("(Mind) Inferring %s." %(p))
                       
              
     def propagate_forward(self,T,marked):

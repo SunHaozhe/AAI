@@ -7,8 +7,16 @@ Created on Fri Jun 16 18:12:33 2017
 
 from abduction import Abductor
 from debug import Debug
+from langagenaturel import LangageNaturel
+
 
 class Argumentator:
+
+    def __init__(self,world,mind,dictionary,level=1):
+        self.level = level
+        self.world = world
+        self.mind = mind
+        self.dictionary = dictionary
     
     def __init__(self,world,mind):
         self.world = world
@@ -87,8 +95,8 @@ class Argumentator:
         print("Do you want to reconsider the value of %s?" % R.name)
         print("(current value is %d)" % R.value)
         print("[y/n]")
-        valid = {"yes": True, "y": True, "ye": True,
-                 "no": False, "n": False}
+        valid = {'yes': True, 'y': True, 'ye': True,
+                 'no': False, 'n': False}
                  
         choice = input().lower()
         while choice not in valid:
@@ -98,9 +106,9 @@ class Argumentator:
             print("\nWhat value would you like to give to %s ?" % R.name)
             print("(current value is %d)" % R.value)
             choice = input()
-            while not ((len(choice)>1 and choice[0] in ('-', '+') and choice[1:].isdigit()) or choice.isdigit()):
+            """while not ((len(choice)>1 and choice[0] in ('-', '+') and choice[1:].isdigit()) or choice.isdigit()):
                 print("Please enter an integer.")
-                choice = input()
+                choice = input()"""
             N = int(choice)
             '''
             if N*R.value <= 0 and abs(N)>=abs(R.value):
@@ -122,7 +130,9 @@ class Argumentator:
             
         #Solution : Make T happen if it is possible and value is positive.
         if N>0 and T.seems_possible() and not T.seems:
-            print("------> Decision : %s"%T.name)
+            language = LangageNaturel("Decision", T, self.dictionary)
+            print(language.output())
+            #print("------> Decision : %s"%T.name)
             T.value = N
             T.negation.value = -N
             T.seems = True
@@ -135,7 +145,10 @@ class Argumentator:
         C = Argumentator.__find_mutable_cause(T,N)
 
         if C!=None:
-            print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
+            if self.level>1 :
+                language = LangageNaturel("Abduction", [T, C], self.dictionary)
+                print(language.output())
+                #print("Propagating conflict on %s to cause: %s"%(T.name,C.name))
             old_value = C.value
             C.value = N
                 #C.negation.value = -N
@@ -149,31 +162,45 @@ class Argumentator:
 
         #Negation : Restart the procedure with the conflict (not T,-N)
         if not negated:
-            print("Negating %s, considering %s"%(T.name,T.negation.name))
+            if self.level > 1 :
+                language = LangageNaturel("Negation", T, self.dictionary)
+                print(language.output())
+                #print("Negating %s, considering %s"%(T.name,T.negation.name))
             new_conflict = self.__procedure(T.negation,-N, True)
             if new_conflict != None:
                 return new_conflict
         
         #Give up : Make v(T) = -N, and reconsider if T is reconsiderable.
         else:
-            print("About to give up")
+            if self.level >2:
+                print("Je suis prêt à abandonner \n")
             if (T.negation.seems != T.negation.realised) and (T.seems != T.realised):
                 
                 T.seems = T.realised
                 T.negation.seems = T.negation.realised
                 if T.realised:
-                    print("Just realised that %s !"%T.name)
+                    if self.level >1:
+                        language = LangageNaturel("Discovery", T, self.dictionary)
+                        print(language.output())
+                        #print("Just realised that %s !"%T.name)
                     self.mind.update_based_on(T)
                 else:
-                    print("Just realised that %s !"%T.negation.name)
+                    if self.level >1:
+                        language = LangageNaturel("Discovery", T.negation, self.dictionary)
+                        print(language.output())
+                        #print("Just realised that %s !"%T.negation.name)
                     self.mind.update_based_on(T.negation)
                 
                 return "new_realisation"
             else:
                 if T.realised:
-                    print("Giving up: %s is stored with necessity %d"%(T.name,-N))
+                    language = LangageNaturel("Surrender", T, self.dictionary)
+                    print(language.output())
+                    #print("Giving up: %s is stored with necessity %d"%(T.name,-N))
                 else:
-                    print("Giving up: %s is stored with necessity %d"%(T.negation.name,N))
+                    language = LangageNaturel("Surrender", T.negation, self.dictionary)
+                    print(language.output())
+                    #print("Giving up: %s is stored with necessity %d"%(T.negation.name,N))
                 T.value = -N
                 T.negation.value = N
                 if T.reconsiderable:
@@ -191,7 +218,9 @@ class Argumentator:
         while conflict != None:
             Debug.show_truth(self.world)
             (T,N)=conflict
-            print("Considering conflict of intensity %d with %s"%(N,T.name))
+            language = LangageNaturel("Initialisation", T, self.dictionary)
+            print(language.output())
+            """print("Considering conflict of intensity %d with %s"%(N,T.name))"""
             new_conflict = self.__procedure(T,N,False)
             if new_conflict=="new_realisation":
                 new_conflict = conflict
@@ -204,5 +233,6 @@ class Argumentator:
     
         print("No conflict found\n\n*******\n**END**\n*******\n")
 
+    
         
 
