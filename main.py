@@ -18,9 +18,11 @@ if __name__ == '__main__':
         print(message)
         sys.exit()
     filename = sys.argv[1]
-    predicates,logical_links = Preprocessor.setup_data(filename)
-    world = World(predicates,logical_links)
-    argumentator = Argumentator(world)
+
+    predicates,logical_links, dictionary = Preprocessor.setup_data(filename)
+    world = World(predicates,logical_links, dictionary, 2)
+    mind = Mind(predicates,logical_links, dictionary, 2)
+    argumentator = Argumentator(world,mind,dictionary, 2)
     argumentator.argue()
 
 """
