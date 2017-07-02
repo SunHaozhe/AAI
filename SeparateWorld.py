@@ -6,10 +6,13 @@ Ceci est un script temporaire.
 """
 
 from logical import Logic
+from langagenaturel import LangageNaturel
 
 class World:
     
-    def __init__(self,predicates,logical_links):
+    def __init__(self,predicates,logical_links, dictionary, level=1):
+        self.level = level
+        self.dictionary = dictionary
         self.predicates = predicates
         self.logical_links = logical_links
         self.init_situation = []
@@ -51,7 +54,10 @@ class World:
                             
         for p in self.predicates:                        
             if self.predicates[p].realised and p not in self.previous_situation:
-                print("(World) Inferring %s." %(p))
+                if self.level == 4:
+                    language = LangageNaturel("World", self.predicates[p], self.dictionary)
+                    print(language.output())
+                #print("(World) Inferring %s." %(p))
                       
              
     def propagate_forward(self,T,marked):
